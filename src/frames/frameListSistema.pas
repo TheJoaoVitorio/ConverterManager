@@ -3,6 +3,7 @@ unit frameListSistema;
 interface
 
 uses
+  System.UIConsts,
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
   FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
   FMX.Objects, FMX.Controls.Presentation;
@@ -21,12 +22,15 @@ type
     rtExcluirSistema: TRectangle;
     imgEditarSistema: TImage;
     imgExcluirSistema: TImage;
+    rtContainerFrame: TRectangle;
     procedure imgExcluirSistemaMouseEnter(Sender: TObject);
     procedure imgExcluirSistemaMouseLeave(Sender: TObject);
     procedure imgEditarSistemaMouseEnter(Sender: TObject);
     procedure imgEditarSistemaMouseLeave(Sender: TObject);
     procedure imgViewSistemaMouseEnter(Sender: TObject);
     procedure imgViewSistemaMouseLeave(Sender: TObject);
+    procedure rtContainerFrameMouseEnter(Sender: TObject);
+    procedure rtContainerFrameMouseLeave(Sender: TObject);
   private
     { Private declarations }
   public
@@ -77,6 +81,20 @@ end;
 procedure TFListSistema.imgViewSistemaMouseLeave(Sender: TObject);
 begin
     imgViewSistema.Bitmap.LoadFromFile('..\..\src\assets\icons8_Eye_32.png');
+end;
+
+
+
+procedure TFListSistema.rtContainerFrameMouseEnter(Sender: TObject);
+begin
+    rtContainerFrame.Stroke.Kind  := TBrushKind.Solid;
+    rtContainerFrame.Stroke.Color := TAlphaColors.Royalblue;
+end;
+
+procedure TFListSistema.rtContainerFrameMouseLeave(Sender: TObject);
+begin
+    rtContainerFrame.Stroke.Kind  := TBrushKind.None;
+    rtContainerFrame.Fill.Kind    := TBrushKind.None;
 end;
 
 end.

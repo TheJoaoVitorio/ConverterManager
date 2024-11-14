@@ -16,4 +16,5 @@ begin
   Application.Initialize;
   Application.CreateForm(TFHome, FHome);
   Application.Run;
+//  ReportMemoryLeaksOnShutdown := True;
 end.

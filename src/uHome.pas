@@ -85,7 +85,6 @@ type
     procedure lboxSistemasClick(Sender: TObject);
     procedure Rectangle6Click(Sender: TObject);
     procedure imgClosePopUpClick(Sender: TObject);
-    procedure lboxSistemasMouseEnter(Sender: TObject);
   private
     procedure EditarSistemaClick(Sender: TObject);
     procedure ExcluirSistemaClick(Sender: TObject);
@@ -129,7 +128,7 @@ begin
 
   f := TFListSistema.Create(item);
   f.Parent := item;
-  f.HitTest := False;
+  f.HitTest := TRue;
 
   f.imgViewSistema.OnClick     :=  ViewSistemaClick;
   f.imgEditarSistema.OnClick   :=  EditarSistemaClick;
@@ -165,12 +164,13 @@ begin
 
   end;
 
-  item.Parent := lboxSistemas;
-  item.OnClick      := lboxSistemasClick;
-  item.OnMouseEnter := lboxSistemasMouseEnter;
 
-  //item.AddObject(f);
-  //lboxSistemas.AddObject(item);
+  item.OnClick      := lboxSistemasClick;
+
+
+  item.Parent := lboxSistemas;
+  item.AddObject(f);
+  lboxSistemas.AddObject(item);
 
 
 end;
@@ -336,19 +336,5 @@ begin
 
 end;
 
-
-
-procedure TFHome.lboxSistemasMouseEnter(Sender: TObject);
-var
-  item : TListBoxItem;
-  frame: TFListSistema;
-begin
-    item := TListBoxItem(Sender);
-
-    frame := TFListSistema(item.Controls[1]);
-
-    frame.lblNomeSistema.FontColor := TAlphaColors.Dodgerblue;        //funciona mas ainda dá erro;
-
-end;
 
 end.

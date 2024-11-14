@@ -216,7 +216,6 @@ object FHome: TFHome
           StyleLookup = 'lboxSistemasStyle1'
           TabOrder = 0
           OnClick = lboxSistemasClick
-          OnMouseEnter = lboxSistemasMouseEnter
           DisableFocusEffect = True
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''
