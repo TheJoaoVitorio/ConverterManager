@@ -34,6 +34,8 @@ type
     lboxSistemas: TListBox;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lboxSistemasItemClick(const Sender: TCustomListBox;
+      const Item: TListBoxItem);
   private
 
   public
@@ -64,6 +66,7 @@ begin
     item         := TListBoxItem.Create(nil);
     item.HitTest := True;
     item.Tag     := ID;
+    item.Selectable := true;
 
     f := TFListSistema.Create(item);
     f.Parent                  := item;
@@ -79,13 +82,33 @@ begin
     item.AddObject(f);
 
     lboxSistemas.AddObject(item);
+    lboxSistemas.ItemWidth  := 990;
+    lboxSistemas.ItemHeight := 49;
 
 end;
 
 
 procedure TFHome.FormCreate(Sender: TObject);
+var
+  sistema: TSistemasVO;
 begin
+
+    if not Assigned(listSistema) then
+      listSistema := TObjectList<TSistemasVO>.Create;
+
     listSistema := TGerenciadorController.GetSistemas;
+
+    for sistema in listSistema do
+    begin
+      AddListSistema(sistema.ID,
+                     sistema.Sistema,
+                     sistema.Cidade,
+                     sistema.Versao,
+                     sistema.TipoBase,
+                     sistema.Usuario,
+                     sistema.Senha,
+                     sistema.NomeBase);
+    end;
 
 
 end;
@@ -93,6 +116,13 @@ end;
 procedure TFHome.imgCloseClick(Sender: TObject);
 begin
     Application.Terminate;
+end;
+
+procedure TFHome.lboxSistemasItemClick(const Sender: TCustomListBox;
+  const Item: TListBoxItem);
+begin
+    ShowMessage(Item.TagString);
+    ShowMessage(lboxSistemas.TagString)
 end;
 
 end.

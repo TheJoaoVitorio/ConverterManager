@@ -79,6 +79,8 @@ begin
     item.AddObject(f);
 
     lboxSistemas.AddObject(item);
+    lboxSistemas.ItemWidth  := 990;
+    lboxSistemas.ItemHeight := 49;
 
 end;
 
@@ -94,7 +96,16 @@ begin
     listSistema := TGerenciadorController.GetSistemas;
 
     for sistema in listSistema do
-
+    begin
+      AddListSistema(sistema.ID,
+                     sistema.Sistema,
+                     sistema.Cidade,
+                     sistema.Versao,
+                     sistema.TipoBase,
+                     sistema.Usuario,
+                     sistema.Senha,
+                     sistema.NomeBase);
+    end;
 
 
 end;

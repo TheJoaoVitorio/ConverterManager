@@ -34,6 +34,8 @@ type
     lboxSistemas: TListBox;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lboxSistemasItemClick(const Sender: TCustomListBox;
+      const Item: TListBoxItem);
   private
 
   public
@@ -64,6 +66,9 @@ begin
     item         := TListBoxItem.Create(nil);
     item.HitTest := True;
     item.Tag     := ID;
+    item.Selectable := true;
+    item.Cursor := crHandPoint;
+
 
     f := TFListSistema.Create(item);
     f.Parent                  := item;
@@ -113,6 +118,13 @@ end;
 procedure TFHome.imgCloseClick(Sender: TObject);
 begin
     Application.Terminate;
+end;
+
+procedure TFHome.lboxSistemasItemClick(const Sender: TCustomListBox;
+  const Item: TListBoxItem);
+begin
+    ShowMessage(Item.TagString);
+    ShowMessage(lboxSistemas.TagString)
 end;
 
 end.

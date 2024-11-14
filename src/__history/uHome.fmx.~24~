@@ -215,7 +215,6 @@ object FHome: TFHome
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''
           DefaultItemStyles.GroupFooterStyle = ''
-          OnItemClick = lboxSistemasItemClick
           Viewport.Width = 697.000000000000000000
           Viewport.Height = 288.000000000000000000
         end

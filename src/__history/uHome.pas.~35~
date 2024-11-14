@@ -34,6 +34,7 @@ type
     lboxSistemas: TListBox;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure lboxSistemasClick(Sender: TObject);
   private
 
   public
@@ -79,7 +80,7 @@ begin
     item.AddObject(f);
 
     lboxSistemas.AddObject(item);
-    lboxSistemas.ItemWidth  := 974;
+    lboxSistemas.ItemWidth  := 990;
     lboxSistemas.ItemHeight := 49;
 
 end;
@@ -113,6 +114,11 @@ end;
 procedure TFHome.imgCloseClick(Sender: TObject);
 begin
     Application.Terminate;
+end;
+
+procedure TFHome.lboxSistemasClick(Sender: TObject);
+begin
+      ShowMessage(lboxSistemas.TagString)
 end;
 
 end.
