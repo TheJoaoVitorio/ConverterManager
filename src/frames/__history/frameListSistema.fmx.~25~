@@ -116,7 +116,7 @@ object FListSistema: TFListSistema
       Margins.Top = 10.000000000000000000
       Margins.Right = 10.000000000000000000
       Margins.Bottom = 10.000000000000000000
-      Position.X = 851.000000000000000000
+      Position.X = 917.000000000000000000
       Position.Y = 10.000000000000000000
       Size.Width = 46.000000000000000000
       Size.Height = 29.000000000000000000
@@ -165,7 +165,7 @@ object FListSistema: TFListSistema
       Margins.Top = 10.000000000000000000
       Margins.Right = 10.000000000000000000
       Margins.Bottom = 10.000000000000000000
-      Position.X = 917.000000000000000000
+      Position.X = 851.000000000000000000
       Position.Y = 10.000000000000000000
       Size.Width = 46.000000000000000000
       Size.Height = 29.000000000000000000
