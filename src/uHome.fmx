@@ -1493,4 +1493,85 @@ object FHome: TFHome
     Stroke.Kind = None
     Visible = False
   end
+  object lyPopUp: TLayout
+    Align = Center
+    Size.Width = 661.000000000000000000
+    Size.Height = 472.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 3
+    object rtPopUp: TRectangle
+      Align = Client
+      Fill.Color = xFF242C38
+      Size.Width = 661.000000000000000000
+      Size.Height = 472.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Kind = None
+      XRadius = 12.000000000000000000
+      YRadius = 12.000000000000000000
+      object rtTopoPopUp: TRectangle
+        Align = MostTop
+        Fill.Color = xFF242C38
+        Margins.Top = 12.000000000000000000
+        Position.Y = 12.000000000000000000
+        Size.Width = 661.000000000000000000
+        Size.Height = 33.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object imgClosePopUp: TImage
+          MultiResBitmap = <
+            item
+              Width = 32
+              Height = 32
+              PNG = {
+                89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+                F4000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+                011C494441545847ED95EF4EC23014C51748E4D120F121543E4944F19B3C900F
+                C18311D6047BEB39EBA936C822B84D12D25FD274EDFD73EEED0AAB0A8542E114
+                420837CED9AD96BF425FC668D90D339B38E737CE8580B1D6762BF489BE7EC358
+                6DFF9DBAB6D976BB3726E58CF5A34C3F806D71E03B95A91B48F480843E76C661
+                6F327D817D75DE887BC6C8D40F48386F2B6270F1445E04661CB5AD58C8BF8827
+                20B08CE2B188FC19B627B90D4B7E1259E77399CF62A4F92C42A83E38C555037E
+                F6CDDEF0F01DA7EE79EC1CDFA710EEE5360C107FCE05773BBBA3289F5341F491
+                7BBFF0C6E7E279B78745C0F745A67E40C2D736F1C4912256327503477AD9BF62
+                5CEF715DFB77243CE99241B4B9A48C61ACB6BB71D1CF71A150B872AAEA133E4B
+                D0108A6B60150000000049454E44AE426082}
+            end>
+          Align = MostRight
+          Cursor = crHandPoint
+          Margins.Left = 4.000000000000000000
+          Margins.Top = 4.000000000000000000
+          Margins.Right = 8.000000000000000000
+          Margins.Bottom = 4.000000000000000000
+          Position.X = 616.000000000000000000
+          Position.Y = 4.000000000000000000
+          Size.Width = 37.000000000000000000
+          Size.Height = 25.000000000000000000
+          Size.PlatformDefault = False
+          WrapMode = Place
+          OnClick = imgClosePopUpClick
+        end
+      end
+      object rtPopUpContent: TRectangle
+        Align = Client
+        Fill.Color = xFF242C38
+        Size.Width = 661.000000000000000000
+        Size.Height = 427.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object Rectangle3: TRectangle
+          Align = Client
+          Fill.Color = xFF242C38
+          Margins.Left = 40.000000000000000000
+          Margins.Top = 10.000000000000000000
+          Margins.Right = 40.000000000000000000
+          Margins.Bottom = 40.000000000000000000
+          Size.Width = 581.000000000000000000
+          Size.Height = 377.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+        end
+      end
+    end
+  end
 end

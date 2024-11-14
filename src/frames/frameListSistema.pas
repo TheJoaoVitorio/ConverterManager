@@ -57,12 +57,13 @@ end;
 
 procedure TFListSistema.imgExcluirSistemaMouseEnter(Sender: TObject);//press
 begin
-    rtExcluirSistema.Fill.Color := TAlphaColors.Royalblue;
+    rtExcluirSistema.Fill.Color := TAlphaColors.Dodgerblue;
 end;
 
 procedure TFListSistema.imgExcluirSistemaMouseLeave(Sender: TObject);
 begin
-    rtExcluirSistema.Fill.Color := TAlphaColors.Dodgerblue;
+    rtExcluirSistema.Fill.Color := TAlphaColors.Royalblue;
+
 end;
 
 

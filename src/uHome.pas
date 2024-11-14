@@ -33,10 +33,17 @@ type
     StyleBook1: TStyleBook;
     lboxSistemas: TListBox;
     rtFundoEscuro: TRectangle;
+    lyPopUp: TLayout;
+    rtPopUp: TRectangle;
+    rtTopoPopUp: TRectangle;
+    imgClosePopUp: TImage;
+    rtPopUpContent: TRectangle;
+    Rectangle3: TRectangle;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lboxSistemasClick(Sender: TObject);
     procedure Rectangle6Click(Sender: TObject);
+    procedure imgClosePopUpClick(Sender: TObject);
   private
     procedure EditarSistemaClick(Sender: TObject);
     procedure ExcluirSistemaClick(Sender: TObject);
@@ -154,6 +161,7 @@ end;
 procedure TFHome.Rectangle6Click(Sender: TObject);
 begin
     rtFundoEscuro.Visible := True;
+    lyPopUp.Visible := True;
 end;
 
 procedure TFHome.ViewSistemaClick(Sender:Tobject);
@@ -239,6 +247,12 @@ begin
     Application.Terminate;
 end;
 
+
+procedure TFHome.imgClosePopUpClick(Sender: TObject);
+begin
+    lyPopUp.Visible       := False;
+    rtFundoEscuro.Visible := False;
+end;
 
 procedure TFHome.lboxSistemasClick(Sender: TObject);
 var

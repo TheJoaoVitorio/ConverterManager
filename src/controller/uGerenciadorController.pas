@@ -314,8 +314,8 @@ begin
                       'WHERE ID = :ID';
 
           ParamByName('ID').AsInteger := Id;
-
           ExecSQL;
+
 
           Result := True;
         end;
@@ -323,7 +323,7 @@ begin
         Result := False;
       end;
     finally
-
+      if Assigned(vQuery) then vQuery.Free;      
     end;
 
 end;
