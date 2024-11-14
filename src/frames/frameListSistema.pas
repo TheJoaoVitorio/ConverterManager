@@ -21,6 +21,12 @@ type
     rtExcluirSistema: TRectangle;
     imgEditarSistema: TImage;
     imgExcluirSistema: TImage;
+    procedure imgExcluirSistemaMouseEnter(Sender: TObject);
+    procedure imgExcluirSistemaMouseLeave(Sender: TObject);
+    procedure imgEditarSistemaMouseEnter(Sender: TObject);
+    procedure imgEditarSistemaMouseLeave(Sender: TObject);
+    procedure imgViewSistemaMouseEnter(Sender: TObject);
+    procedure imgViewSistemaMouseLeave(Sender: TObject);
   private
     { Private declarations }
   public
@@ -30,5 +36,46 @@ type
 implementation
 
 {$R *.fmx}
+
+
+
+procedure TFListSistema.imgEditarSistemaMouseEnter(Sender: TObject);
+begin
+    rtEditarSistema.Fill.Kind  := TBrushKind.Solid;
+    rtEditarSistema.Fill.Color := TAlphaColors.Dodgerblue;
+
+    imgEditarSistema.Bitmap.LoadFromFile('..\..\src\assets\icons8_Pencil_16-white.png');
+end;
+
+procedure TFListSistema.imgEditarSistemaMouseLeave(Sender: TObject);
+begin
+    imgEditarSistema.Bitmap.LoadFromFile('..\..\src\assets\icons8_Pencil_16.png');
+    rtEditarSistema.Fill.Kind := TBrushKind.None;
+end;
+
+
+
+procedure TFListSistema.imgExcluirSistemaMouseEnter(Sender: TObject);//press
+begin
+    rtExcluirSistema.Fill.Color := TAlphaColors.Royalblue;
+end;
+
+procedure TFListSistema.imgExcluirSistemaMouseLeave(Sender: TObject);
+begin
+    rtExcluirSistema.Fill.Color := TAlphaColors.Dodgerblue;
+end;
+
+
+
+procedure TFListSistema.imgViewSistemaMouseEnter(Sender: TObject);
+begin
+    imgViewSistema.Bitmap.LoadFromFile('..\..\src\assets\icons8_Eye-blue_32.png');
+
+end;
+
+procedure TFListSistema.imgViewSistemaMouseLeave(Sender: TObject);
+begin
+    imgViewSistema.Bitmap.LoadFromFile('..\..\src\assets\icons8_Eye_32.png');
+end;
 
 end.

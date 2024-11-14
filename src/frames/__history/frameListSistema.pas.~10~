@@ -1,0 +1,50 @@
+unit frameListSistema;
+
+interface
+
+uses
+  System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants, 
+  FMX.Types, FMX.Graphics, FMX.Controls, FMX.Forms, FMX.Dialogs, FMX.StdCtrls,
+  FMX.Objects, FMX.Controls.Presentation;
+
+type
+  TFListSistema = class(TFrame)
+    lblNomeSistema: TLabel;
+    lblCidadeSistema: TLabel;
+    lblVersao: TLabel;
+    lblTipoBase: TLabel;
+    lblUsuarioSistema: TLabel;
+    lblSenhaSistema: TLabel;
+    lblNomeBaseSistema: TLabel;
+    imgViewSistema: TImage;
+    rtEditarSistema: TRectangle;
+    rtExcluirSistema: TRectangle;
+    imgEditarSistema: TImage;
+    imgExcluirSistema: TImage;
+    procedure imgExcluirSistemaMouseEnter(Sender: TObject);
+    procedure imgExcluirSistemaMouseLeave(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+implementation
+
+{$R *.fmx}
+
+
+
+procedure TFListSistema.imgExcluirSistemaMouseEnter(Sender: TObject);//press
+begin
+    rtExcluirSistema.Fill.Color := TAlphaColors.Royalblue;
+end;
+
+procedure TFListSistema.imgExcluirSistemaMouseLeave(Sender: TObject);
+begin
+    rtExcluirSistema.Fill.Color := TAlphaColors.Dodgerblue;
+end;
+
+
+
+end.
