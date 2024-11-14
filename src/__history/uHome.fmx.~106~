@@ -252,7 +252,6 @@ object FHome: TFHome
         end
         object Rectangle6: TRectangle
           Align = MostRight
-          Cursor = crHandPoint
           Fill.Color = claRoyalblue
           Margins.Left = 12.000000000000000000
           Margins.Top = 12.000000000000000000
@@ -282,7 +281,6 @@ object FHome: TFHome
                   5C0000000049454E44AE426082}
               end>
             Align = MostLeft
-            HitTest = False
             Margins.Left = 8.000000000000000000
             Margins.Top = 8.000000000000000000
             Margins.Bottom = 8.000000000000000000

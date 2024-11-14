@@ -90,8 +90,8 @@ type
     procedure ExcluirSistemaClick(Sender: TObject);
     procedure ViewSistemaClick(Sender: Tobject);
     function PegaIdListItem(Sender: TObject): Integer;
-    procedure ItemMouseEnter(Sender: TObject);
-    procedure ItemMouseLeave(Sender: TObject);
+    procedure LimpaEdtPopUP;
+    procedure BloquearEdicaoEdtPopUP;
 
   public
     procedure AddListSistema(ID :Integer;
@@ -168,8 +168,8 @@ begin
 
 
   item.OnClick      := lboxSistemasClick;
-  item.OnMouseEnter := ItemMouseEnter;
-  item.OnMouseLeave := ItemMouseLeave;
+
+
   item.Parent := lboxSistemas;
   item.AddObject(f);
   lboxSistemas.AddObject(item);
@@ -207,8 +207,35 @@ procedure TFHome.Rectangle6Click(Sender: TObject);
 begin
     rtFundoEscuro.Visible := True;
     lyPopUp.Visible := True;
+
+    LimpaEdtPopUP;
+
 end;
 
+
+procedure TFHome.LimpaEdtPopUP;
+begin
+    edtNomeSistema.Text     := '';
+    edtCidadeSistema.Text   := '';
+    edtEstadoSistema.Text   := '';
+    edtVersaoSistema.Text   := '';
+    edtTipoBaseSistema.Text := '';
+    edtNomeBaseSistema.Text := '';
+    edtPortaSistema.Text    := '';
+    edtDriverSistema.Text   := '';
+end;
+
+procedure TFHome.BloquearEdicaoEdtPopUP;
+begin
+    edtNomeSistema.ReadOnly     := True;
+    edtCidadeSistema.ReadOnly   := True;
+    edtEstadoSistema.ReadOnly   := True;
+    edtVersaoSistema.ReadOnly   := True;
+    edtTipoBaseSistema.ReadOnly := True;
+    edtNomeBaseSistema.ReadOnly := True;
+    edtPortaSistema.ReadOnly    := True;
+    edtDriverSistema.ReadOnly   := True;
+end;
 
 
 procedure TFHome.ViewSistemaClick(Sender:Tobject);
@@ -222,7 +249,7 @@ var
 begin
 
   ID_ITEM := PegaIdListItem(Sender);
-
+  BloquearEdicaoEdtPopUP;
 
   if not Assigned(list) then
     list := TObjectList<TSistemasVO>.Create;
@@ -337,107 +364,6 @@ begin
     ShowMessage( IntToStr(ID_ITEM) );
 
 end;
-
-
-
-//var
-//  item: TListBoxItem;
-//  parentControl: TFmxObject;
-//begin
-//  // Começa pelo Sender (o componente clicado, no caso a imagem)
-//  parentControl := Sender as TFmxObject;
-//
-//
-//  // Navega pela hierarquia para encontrar o TListBoxItem pai
-//  while (parentControl <> nil) and not (parentControl is TListBoxItem) do
-//    parentControl := parentControl.Parent;
-//
-//
-//  // Se encontrou o TListBoxItem
-//  if parentControl is TListBoxItem then
-//  begin
-//    item := TListBoxItem(parentControl);
-//    item.
-//  end
-
-
-procedure TFHome.ItemMouseEnter(Sender: TObject);
-var
-  item: TListBoxItem;
-  frame: TFListSistema;
-begin
-  if not (Sender is TListBoxItem) then Exit;
-
-  item := TListBoxItem(Sender);
-
-  // Verifique se o controle é um TFListSistema
-  if (item.ControlsCount > 0) and (item.Controls[0] is TFListSistema) then
-  begin
-    frame := TFListSistema(item.Controls[0]);
-    frame.lblNomeSistema.FontColor := TAlphaColors.Dodgerblue; // Exemplo de destaque
-  end;
-end;
-
-procedure TFHome.ItemMouseLeave(Sender: TObject);
-var
-  item: TListBoxItem;
-  frame: TFListSistema;
-begin
-  if not (Sender is TListBoxItem) then Exit;
-
-  item := TListBoxItem(Sender);
-
-  // Verifique se o controle é um TFListSistema
-  if (item.ControlsCount > 0) and (item.Controls[0] is TFListSistema) then
-  begin
-    frame := TFListSistema(item.Controls[0]);
-    frame.lblNomeSistema.FontColor := TAlphaColors.Red; // Retorne à cor original
-  end;
-end;
-
-
-
-//procedure TFHome.lboxSistemasMouseEnter(Sender: TObject);
-//var
-//  item: TListBoxItem;
-//  frame: TFListSistema;
-//begin
-//  if not (Sender is TListBoxItem) then
-//    Exit;
-//
-//  item := TListBoxItem(Sender);
-//
-//  // Verifique se o controle é um TFListSistema
-//  if (item.ControlsCount > 1) and (item.Controls[1] is TFListSistema) then
-//  begin
-//    frame := TFListSistema(item.Controls[1]);
-//    frame.lblNomeSistema.FontColor := TAlphaColors.Dodgerblue;
-//  end
-//  else
-//    Exit; // Não faça nada se o controle não for esperado.
-//end;
-//
-//
-//
-//procedure TFHome.lboxSistemasMouseLeave(Sender: TObject);
-//var
-//  item: TListBoxItem;
-//  frame: TFListSistema;
-//begin
-//  if not (Sender is TListBoxItem) then
-//    Exit;
-//
-//  item := TListBoxItem(Sender);
-//
-//  // Verifique se o controle é um TFListSistema
-//  if (item.ControlsCount > 1) and (item.Controls[1] is TFListSistema) then
-//  begin
-//    frame := TFListSistema(item.Controls[1]);
-//    frame.lblNomeSistema.FontColor := TAlphaColors.White; // Ou outra cor padrão
-//  end
-//  else
-//    Exit; // Não faça nada se o controle não for esperado.
-//end;
 
 
 end.

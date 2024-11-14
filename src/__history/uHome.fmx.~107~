@@ -252,6 +252,7 @@ object FHome: TFHome
         end
         object Rectangle6: TRectangle
           Align = MostRight
+          Cursor = crHandPoint
           Fill.Color = claRoyalblue
           Margins.Left = 12.000000000000000000
           Margins.Top = 12.000000000000000000
@@ -1574,6 +1575,7 @@ object FHome: TFHome
           object rtPopUpLeft: TRectangle
             Align = MostLeft
             Fill.Color = xFF242C38
+            Margins.Right = 10.000000000000000000
             Size.Width = 201.000000000000000000
             Size.Height = 412.000000000000000000
             Size.PlatformDefault = False
@@ -1737,7 +1739,7 @@ object FHome: TFHome
           object Rectangle4: TRectangle
             Align = Client
             Fill.Color = xFF242C38
-            Size.Width = 426.000000000000000000
+            Size.Width = 416.000000000000000000
             Size.Height = 412.000000000000000000
             Size.PlatformDefault = False
             Stroke.Kind = None

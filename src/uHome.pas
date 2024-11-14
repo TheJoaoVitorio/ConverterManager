@@ -90,6 +90,8 @@ type
     procedure ExcluirSistemaClick(Sender: TObject);
     procedure ViewSistemaClick(Sender: Tobject);
     function PegaIdListItem(Sender: TObject): Integer;
+    procedure LimpaEdtPopUP;
+    procedure BloquearEdicaoEdtPopUP;
 
   public
     procedure AddListSistema(ID :Integer;
@@ -205,8 +207,55 @@ procedure TFHome.Rectangle6Click(Sender: TObject);
 begin
     rtFundoEscuro.Visible := True;
     lyPopUp.Visible := True;
+
+    LimpaEdtPopUP;
+
 end;
 
+
+procedure TFHome.LimpaEdtPopUP;
+begin
+    edtNomeSistema.Text     := '';
+    edtCidadeSistema.Text   := '';
+    edtEstadoSistema.Text   := '';
+    edtVersaoSistema.Text   := '';
+    edtTipoBaseSistema.Text := '';
+    edtNomeBaseSistema.Text := '';
+    edtPortaSistema.Text    := '';
+    edtDriverSistema.Text   := '';
+end;
+
+procedure TFHome.BloquearEdicaoEdtPopUP;
+begin
+    edtNomeSistema.CanFocus     := False;
+    edtCidadeSistema.CanFocus   := False;
+    edtEstadoSistema.CanFocus   := False;
+    edtVersaoSistema.CanFocus   := False;
+    edtTipoBaseSistema.CanFocus := False;
+    edtNomeBaseSistema.CanFocus := False;
+    edtPortaSistema.CanFocus    := False;
+    edtDriverSistema.CanFocus   := False;
+
+
+    edtNomeSistema.Cursor       := crNo;
+    edtCidadeSistema.Cursor     := crNo;
+    edtEstadoSistema.Cursor     := crNo;
+    edtVersaoSistema.Cursor     := crNo;
+    edtTipoBaseSistema.Cursor   := crNo;
+    edtNomeBaseSistema.Cursor   := crNo;
+    edtPortaSistema.Cursor      := crNo;
+    edtDriverSistema.Cursor     := crNo;
+
+
+    edtNomeSistema.ReadOnly     := True;
+    edtCidadeSistema.ReadOnly   := True;
+    edtEstadoSistema.ReadOnly   := True;
+    edtVersaoSistema.ReadOnly   := True;
+    edtTipoBaseSistema.ReadOnly := True;
+    edtNomeBaseSistema.ReadOnly := True;
+    edtPortaSistema.ReadOnly    := True;
+    edtDriverSistema.ReadOnly   := True;
+end;
 
 
 procedure TFHome.ViewSistemaClick(Sender:Tobject);
@@ -220,7 +269,7 @@ var
 begin
 
   ID_ITEM := PegaIdListItem(Sender);
-
+  BloquearEdicaoEdtPopUP;
 
   if not Assigned(list) then
     list := TObjectList<TSistemasVO>.Create;
