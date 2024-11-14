@@ -85,6 +85,7 @@ type
     procedure lboxSistemasClick(Sender: TObject);
     procedure Rectangle6Click(Sender: TObject);
     procedure imgClosePopUpClick(Sender: TObject);
+    procedure lboxSistemasMouseEnter(Sender: TObject);
   private
     procedure EditarSistemaClick(Sender: TObject);
     procedure ExcluirSistemaClick(Sender: TObject);
@@ -165,7 +166,8 @@ begin
   end;
 
   item.Parent := lboxSistemas;
-  item.OnClick := lboxSistemasClick;
+  item.OnClick      := lboxSistemasClick;
+  item.OnMouseEnter := lboxSistemasMouseEnter;
 
   //item.AddObject(f);
   //lboxSistemas.AddObject(item);
@@ -205,16 +207,40 @@ begin
     lyPopUp.Visible := True;
 end;
 
+
+
 procedure TFHome.ViewSistemaClick(Sender:Tobject);
 var
   item: TListBoxItem;
   parentControl: TFmxObject;
   ID_ITEM: Integer;
+
+  list : TObjectList<TSistemasVO>;
+  itemSistema : TSistemasVO;
 begin
 
   ID_ITEM := PegaIdListItem(Sender);
 
-  TGerenciadorController.GetSistema(ID_ITEM);
+
+  if not Assigned(list) then
+    list := TObjectList<TSistemasVO>.Create;
+
+  list := TGerenciadorController.GetSistema(ID_ITEM);
+
+  for itemSistema in list do
+  begin
+    edtNomeSistema.Text     := itemSistema.Sistema;
+    edtCidadeSistema.Text   := itemSistema.Cidade;
+    edtEstadoSistema.Text   := itemSistema.Estado;
+    edtVersaoSistema.Text   := itemSistema.Versao;
+    edtTipoBaseSistema.Text := itemSistema.TipoBase;
+    edtNomeBaseSistema.Text := itemSistema.NomeBase;
+    edtPortaSistema.Text    := IntToStr(itemSistema.Porta);
+    edtDriverSistema.Text   := itemSistema.Driver;
+  end;
+
+  rtFundoEscuro.Visible := True;
+  lyPopUp.Visible       := True;
 
 end;
 
@@ -311,5 +337,18 @@ begin
 end;
 
 
+
+procedure TFHome.lboxSistemasMouseEnter(Sender: TObject);
+var
+  item : TListBoxItem;
+  frame: TFListSistema;
+begin
+    item := TListBoxItem(Sender);
+
+    frame := TFListSistema(item.Controls[1]);
+
+    frame.lblNomeSistema.FontColor := TAlphaColors.Dodgerblue;        //funciona mas ainda dá erro;
+
+end;
 
 end.

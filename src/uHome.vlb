@@ -1,76 +1,203 @@
 ﻿[headerContent]
-Coordinates=127,346,99,36
+Coordinates=127,346,87,33
 
 [rtBarraPesquisa]
-Coordinates=10,346,107,36
+Coordinates=10,346,93,33
 
 [header]
-Coordinates=594,300,54,36
+Coordinates=594,300,48,33
 
 [rtContent]
-Coordinates=516,300,68,36
+Coordinates=516,300,60,33
 
 [Rectangle6]
-Coordinates=426,300,80,36
+Coordinates=426,300,69,33
 
 [Rectangle2]
-Coordinates=336,300,80,36
+Coordinates=336,300,69,33
 
 [navBar]
-Coordinates=271,300,55,36
+Coordinates=271,300,49,33
 
 [imgMinimize]
-Coordinates=276,10,86,58
+Coordinates=276,10,76,51
 
 [StyleBook1]
-Coordinates=45,327,80,36
+Coordinates=45,327,70,33
 
 [headerAdicionarSistemas]
-Coordinates=100,300,161,36
+Coordinates=100,300,140,33
 
 [edtBuscaSistema]
-Coordinates=372,10,114,58
+Coordinates=372,10,100,51
 
 [Rectangle1]
-Coordinates=10,300,80,36
+Coordinates=10,300,69,33
 
 [Image3]
-Coordinates=496,10,57,58
+Coordinates=496,10,49,51
 
 [Image1]
-Coordinates=10,232,57,58
+Coordinates=10,232,49,51
 
 [imgClose]
-Coordinates=77,232,68,58
+Coordinates=77,232,60,51
 
 [Label4]
-Coordinates=155,232,53,58
+Coordinates=155,232,46,51
 
 [Label3]
-Coordinates=563,10,53,58
+Coordinates=563,10,46,51
 
 [lboxSistemas]
-Coordinates=10,10,139,212
+Coordinates=10,10,116,177
 
 [lyPopUp]
-Coordinates=590,232,63,36
+Coordinates=590,232,56,33
 
 [rtPopUp]
-Coordinates=518,232,62,36
+Coordinates=518,232,54,33
 
 [rtFundoEscuro]
-Coordinates=409,232,99,36
+Coordinates=409,232,88,33
 
 [imgClosePopUp]
-Coordinates=159,10,107,58
+Coordinates=159,10,93,51
 
 [rtTopoPopUp]
-Coordinates=308,232,91,36
+Coordinates=308,232,80,33
 
 []
-Coordinates=434,243,91,36
+Coordinates=837,261,82,33
 
 [rtPopUpContent]
-Coordinates=218,232,80,36
+Coordinates=218,232,93,33
 Visible=True
+
+[Rectangle4]
+Coordinates=20,417,69,33
+
+[Label8]
+Coordinates=290,150,46,51
+
+[Rectangle10]
+Coordinates=676,71,75,33
+
+[rtEstadoSistema]
+Coordinates=684,123,95,33
+
+[rtNomeBaseSistema]
+Coordinates=684,175,114,33
+
+[rtVersaoSistema]
+Coordinates=684,227,95,33
+
+[Image2]
+Coordinates=316,417,49,51
+
+[edtVersaoSistema]
+Coordinates=99,417,103,51
+
+[Rectangle8]
+Coordinates=676,279,69,33
+
+[rtCidadeSistema]
+Coordinates=684,331,95,33
+
+[Label10]
+Coordinates=208,417,52,51
+
+[Rectangle9]
+Coordinates=676,383,69,33
+
+[Rectangle5]
+Coordinates=676,435,69,33
+
+[Label2]
+Coordinates=443,352,46,51
+
+[Rectangle3]
+Coordinates=676,487,69,33
+
+[rtDriverSistema]
+Coordinates=577,506,91,33
+
+[rtFotoSistema]
+Coordinates=488,506,83,33
+
+[edtCidadeSistema]
+Coordinates=535,80,103,51
+
+[rtNomeSistema]
+Coordinates=389,506,89,33
+
+[rtPopUpLeft]
+Coordinates=310,506,73,33
+Visible=True
+
+[coluna1]
+Coordinates=251,506,53,33
+
+[rtTipoBase]
+Coordinates=182,506,68,33
+
+[rtTipoBaseSistema]
+Coordinates=73,506,107,33
+
+[Rectangle12]
+Coordinates=837,1,75,33
+
+[edtEstadoSistema]
+Coordinates=516,417,103,51
+
+[edtTipoBaseSistema]
+Coordinates=684,1,115,51
+
+[edtNomeSistema]
+Coordinates=535,352,97,51
+
+[imgTipoBase]
+Coordinates=290,80,79,51
+
+[Rectangle11]
+Coordinates=837,53,75,33
+
+[Label5]
+Coordinates=375,417,46,51
+
+[coluna2]
+Coordinates=14,506,53,33
+
+[Label7]
+Coordinates=145,80,46,51
+
+[Label9]
+Coordinates=424,417,46,51
+
+[Rectangle16]
+Coordinates=837,105,75,33
+
+[Label1]
+Coordinates=267,417,46,51
+
+[edtDriverSistema]
+Coordinates=535,150,99,51
+
+[edtPortaSistema]
+Coordinates=145,150,95,51
+
+[Label6]
+Coordinates=443,80,46,51
+
+[edtNomeBaseSistema]
+Coordinates=349,150,122,51
+
+[Rectangle15]
+Coordinates=837,157,75,33
+
+[rtPortaSistema]
+Coordinates=837,209,87,33
+
+[Rectangle13]
+Coordinates=837,313,75,33
 

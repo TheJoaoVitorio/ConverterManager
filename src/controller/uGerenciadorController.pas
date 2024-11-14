@@ -37,7 +37,7 @@ begin
         with vQuery do
         begin
             Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
-            SQL.Text   := 'SELECT * FROM SISTEMAS';
+            SQL.Text   := 'SELECT * FROM SISTEMAS order by SISTEMA asc';
 
             Open;
 
