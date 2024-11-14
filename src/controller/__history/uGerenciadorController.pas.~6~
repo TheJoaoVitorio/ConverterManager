@@ -1,0 +1,54 @@
+unit uGerenciadorController;
+
+interface
+
+uses
+  uInstanciaConexao, uSistemasVO, System.Generics.Collections,
+  FireDAC.Comp.Client;
+
+type
+  TGerenciadorController = class
+    private
+    public
+      class function GetSistemas : TObjectList<TSistemasVO>;
+  end;
+
+implementation
+
+{ TGerenciadorController }
+
+class function TGerenciadorController.GetSistemas: TObjectList<TSistemasVO>;
+var vQuery : TFDQuery;
+    vSistema : TSistemasVO;
+begin
+
+    vQuery := TFDQuery.Create(nil);
+    try
+      try
+        with vQuery do
+        begin
+            Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
+            SQL.Text   := 'SELECT * FROM SISTEMAS';
+
+            Open;
+
+            while not Eof do
+            begin
+                vSistema := TSistemasVO.Create;
+                vSistema.Sistema := vQuery.FieldByName('SISTEMA').AsString;
+                vSistema.Cidade  := vQuery.FieldByName('CIDADE').AsString+ ' - ' +vQuery.FieldByName('ESTADO').AsString;
+
+
+            end;
+        end;
+      except
+      end;
+
+    finally
+      if Assigned(vQuery) then vQuery.Free;
+    end;
+
+
+end;
+
+end.

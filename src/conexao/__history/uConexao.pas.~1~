@@ -1,0 +1,110 @@
+unit uConexao;
+
+interface
+
+uses
+  FireDAC.Comp.Client, System.SysUtils , Vcl.Dialogs, System.IniFiles;
+
+type
+  THostConexao = class // Conexao de Destino
+    private
+        Conexao    : TFDConnection;
+        Query      : TFDQuery;
+    public
+        procedure AfterConstruction ; override;
+        procedure BeforeDestruction ; override;
+        procedure ConfiguraConexao;
+
+        function GetConexao: TFDConnection;
+        function QueryConexao: TFDQuery;
+
+  end;
+
+var
+  pHostConexao : THostConexao;
+
+implementation
+
+
+//uses
+  //uConfiguracaoController;
+
+{ THostConexao }
+
+procedure THostConexao.AfterConstruction;
+begin
+
+      inherited;
+
+      if not Assigned(Conexao) then
+        begin
+            Conexao    := TFDConnection.Create(nil);
+
+            ConfiguraConexao;
+        end;
+
+      if not Assigned(Query) then
+        Query := TFDQuery.Create(nil);
+
+end;
+
+procedure THostConexao.BeforeDestruction;
+begin
+
+    inherited;
+    if Assigned(Query) then
+      FreeAndNil(Query);
+
+
+    if Assigned(Conexao) then
+      FreeAndNil(Conexao);
+
+
+end;
+
+procedure THostConexao.ConfiguraConexao;
+var
+    Ini : TIniFile;
+begin
+        Ini := nil;
+
+        try
+
+              if FileExists(ExtractFilePath(ParamStr(0)); + '\ConversorRio\Conexao.ini' ) then
+                begin
+                      Ini := TIniFile.Create(ExtractFilePath(ParamStr(0)) + '\ConversorRio\Conexao.ini');
+
+                      with Conexao do
+                        begin
+                            Params.UserName           := Ini.ReadString('CONEXAO_DESTINO','Username','');
+                            Params.Password           := Ini.ReadString('CONEXAO_DESTINO','Password','');
+                            Params.DriverID           := Ini.ReadString('CONEXAO_DESTINO','DriverID','');
+                            Params.Database           := Ini.ReadString('CONEXAO_DESTINO','Database','');
+                            Params.Values['Port']     := Ini.ReadString('CONEXAO_DESTINO','Port','');
+
+                            Connected := True;
+                        end;
+                end;
+        finally
+            Ini.Free;
+        end;
+
+
+end;
+
+function THostConexao.GetConexao: TFDConnection;
+begin
+
+    Result := Conexao;
+
+end;
+
+function THostConexao.QueryConexao: TFDQuery;
+begin
+
+    Query.Connection := Conexao;
+
+    Result := Query;
+end;
+
+end.

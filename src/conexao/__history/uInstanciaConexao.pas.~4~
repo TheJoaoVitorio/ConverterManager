@@ -1,0 +1,79 @@
+unit uInstanciaConexao;
+
+
+
+interface
+
+uses
+  uConexao, System.SysUtils, FireDAC.Stan.Def;
+
+type
+  TInstanciaGerenciadorController = class
+  private
+    FConexao     : TConexao;
+
+
+    class var FInstance: TInstanciaGerenciadorController;
+    class procedure ReleaseInstance; static;
+
+  public
+    constructor Create();
+    destructor Destroy; override;
+
+
+
+    class function GetInstance: TInstanciaGerenciadorController;
+
+     property Conexao: TConexao read FConexao write FConexao;
+
+  end;
+
+implementation
+
+{ TSistemaControl }
+
+
+constructor TInstanciaGerenciadorController.Create();
+begin
+  FConexao     := TConexao.Create;
+
+end;
+
+
+destructor TInstanciaGerenciadorController.Destroy;
+begin
+
+  FConexao.Free;
+
+  inherited;
+end;
+
+
+class function TInstanciaGerenciadorController.GetInstance: TInstanciaGerenciadorController;
+begin
+  if not Assigned(Self.FInstance) then
+  begin
+    Self.FInstance := TInstanciaGerenciadorController.Create();
+  end;
+
+  Result := Self.FInstance;
+end;
+
+
+
+class procedure TInstanciaGerenciadorController.ReleaseInstance;
+begin
+      if FInstance <> nil then
+        begin
+          FInstance.Free;
+          FInstance := nil;
+        end;
+end;
+
+initialization
+
+finalization
+  TInstanciaGerenciadorController.ReleaseInstance;
+
+
+end.
