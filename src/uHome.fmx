@@ -252,7 +252,7 @@ object FHome: TFHome
         end
         object Rectangle6: TRectangle
           Align = MostRight
-          Fill.Color = claDodgerblue
+          Fill.Color = claRoyalblue
           Margins.Left = 12.000000000000000000
           Margins.Top = 12.000000000000000000
           Margins.Right = 12.000000000000000000
@@ -264,6 +264,7 @@ object FHome: TFHome
           Size.PlatformDefault = False
           XRadius = 8.000000000000000000
           YRadius = 8.000000000000000000
+          OnClick = Rectangle6Click
           object Image3: TImage
             MultiResBitmap = <
               item
@@ -1482,5 +1483,14 @@ object FHome: TFHome
           6D44656661756C74080B5374796C654C6F6F6B7570060B767468756D62737479
           6C65000000}
       end>
+  end
+  object rtFundoEscuro: TRectangle
+    Align = Client
+    Fill.Color = x64000000
+    Size.Width = 992.000000000000000000
+    Size.Height = 567.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Visible = False
   end
 end

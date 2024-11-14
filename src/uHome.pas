@@ -32,13 +32,16 @@ type
     edtBuscaSistema: TEdit;
     StyleBook1: TStyleBook;
     lboxSistemas: TListBox;
+    rtFundoEscuro: TRectangle;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lboxSistemasClick(Sender: TObject);
+    procedure Rectangle6Click(Sender: TObject);
   private
     procedure EditarSistemaClick(Sender: TObject);
     procedure ExcluirSistemaClick(Sender: TObject);
     procedure ViewSistemaClick(Sender: Tobject);
+    function PegaIdListItem(Sender: TObject): Integer;
 
   public
     procedure AddListSistema(ID :Integer;
@@ -123,34 +126,99 @@ begin
 end;
 
 
-procedure TFHome.ViewSistemaClick(Sender:Tobject);
+function TFHome.PegaIdListItem(Sender:TObject) : Integer;
+var
+  item: TListBoxItem;
+  parentControl: TFmxObject;
 begin
-    ShowMessage('VIEW');
+  // Começa pelo Sender (o componente clicado, no caso a imagem)
+  parentControl := Sender as TFmxObject;
+
+
+  // Navega pela hierarquia para encontrar o TListBoxItem pai
+  while (parentControl <> nil) and not (parentControl is TListBoxItem) do
+    parentControl := parentControl.Parent;
+
+
+  // Se encontrou o TListBoxItem
+  if parentControl is TListBoxItem then
+  begin
+    item := TListBoxItem(parentControl);
+    Result := item.Tag;
+  end
+
+
 end;
+
+
+procedure TFHome.Rectangle6Click(Sender: TObject);
+begin
+    rtFundoEscuro.Visible := True;
+end;
+
+procedure TFHome.ViewSistemaClick(Sender:Tobject);
+var
+  item: TListBoxItem;
+  parentControl: TFmxObject;
+  ID_ITEM: Integer;
+begin
+
+  ID_ITEM := PegaIdListItem(Sender);
+
+  TGerenciadorController.GetSistema(ID_ITEM);
+
+end;
+
 
 
 procedure TFHome.EditarSistemaClick(Sender:TObject);
+var
+  item : TListBoxItem;
+  frame: TFListSistema;
+  ID_ITEM:Integer;
 begin
-    ShowMessage('EDITAR');
+    item := TListBoxItem(Sender);
+
+    frame := TFListSistema(item.Controls[1]);
+    ID_ITEM := item.Tag;
+
+    ShowMessage('EDITAR'+ IntToStr(ID_ITEM));
+
 end;
+
 
 
 
 procedure TFHome.ExcluirSistemaClick(Sender:TObject);
+var
+  item : TListBoxItem;
+  frame: TFListSistema;
+  ID_ITEM:Integer;
 begin
-    ShowMessage('EXCLUIR');
+    item := TListBoxItem(Sender);
+
+    frame := TFListSistema(item.Controls[1]);
+    ID_ITEM := item.Tag;
+
+    ShowMessage('EXCLUIR'+ IntToStr(ID_ITEM));
+
 end;
+
+
 
 
 procedure TFHome.FormCreate(Sender: TObject);
 var
   sistema: TSistemasVO;
 begin
+  rtFundoEscuro.Visible := False;
+
   if not Assigned(listSistema) then
     listSistema := TObjectList<TSistemasVO>.Create;
 
   listSistema := TGerenciadorController.GetSistemas;
-  lboxSistemas.ItemHeight := 50; // Altura fixa
+  lboxSistemas.ItemHeight := 50;
+
 
   for sistema in listSistema do
   begin
