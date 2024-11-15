@@ -213,7 +213,6 @@ object FHome: TFHome
           Size.PlatformDefault = False
           StyleLookup = 'lboxSistemasStyle1'
           TabOrder = 0
-          OnClick = lboxSistemasClick
           DisableFocusEffect = True
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''

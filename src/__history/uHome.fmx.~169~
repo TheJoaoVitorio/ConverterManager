@@ -213,7 +213,6 @@ object FHome: TFHome
           Size.PlatformDefault = False
           StyleLookup = 'lboxSistemasStyle1'
           TabOrder = 0
-          OnClick = lboxSistemasClick
           DisableFocusEffect = True
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''
@@ -1891,7 +1890,7 @@ object FHome: TFHome
             Size.Width = 416.000000000000000000
             Size.Height = 412.000000000000000000
             Size.PlatformDefault = False
-            TabIndex = 1
+            TabIndex = 0
             TabOrder = 0
             TabPosition = Dots
             Sizes = (
@@ -1903,7 +1902,7 @@ object FHome: TFHome
               CustomIcon = <
                 item
                 end>
-              IsSelected = False
+              IsSelected = True
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
@@ -2138,6 +2137,7 @@ object FHome: TFHome
                         Size.PlatformDefault = False
                         TextPrompt = 'Ex: 5432'
                         StyledSettings = []
+                        OnTyping = edtPortaSistemaTyping
                       end
                     end
                   end
@@ -2399,7 +2399,7 @@ object FHome: TFHome
               CustomIcon = <
                 item
                 end>
-              IsSelected = True
+              IsSelected = False
               Size.Width = 8.000000000000000000
               Size.Height = 8.000000000000000000
               Size.PlatformDefault = False
