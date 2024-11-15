@@ -89,6 +89,8 @@ procedure TFListSistema.rtContainerFrameMouseEnter(Sender: TObject);
 begin
     rtContainerFrame.Stroke.Kind  := TBrushKind.Solid;
     rtContainerFrame.Stroke.Color := TAlphaColors.Royalblue;
+    rtContainerFrame.XRadius      :=  8;
+    rtContainerFrame.YRadius      := 8;
 end;
 
 procedure TFListSistema.rtContainerFrameMouseLeave(Sender: TObject);

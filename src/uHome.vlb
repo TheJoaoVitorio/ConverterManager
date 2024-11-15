@@ -10,9 +10,6 @@ Coordinates=594,300,48,33
 [rtContent]
 Coordinates=516,300,60,33
 
-[Rectangle6]
-Coordinates=426,300,69,33
-
 [Rectangle2]
 Coordinates=336,300,69,33
 
@@ -74,9 +71,6 @@ Coordinates=837,261,82,33
 Coordinates=218,232,93,33
 Visible=True
 
-[Rectangle4]
-Coordinates=20,417,69,33
-
 [Label8]
 Coordinates=290,150,46,51
 
@@ -115,9 +109,6 @@ Coordinates=676,435,69,33
 
 [Label2]
 Coordinates=443,352,46,51
-
-[Rectangle3]
-Coordinates=676,487,69,33
 
 [rtDriverSistema]
 Coordinates=577,506,91,33
@@ -200,4 +191,13 @@ Coordinates=837,209,87,33
 
 [Rectangle13]
 Coordinates=837,313,75,33
+
+[rtDados1]
+Coordinates=20,417,69,33
+
+[rtPopUpContentMain]
+Coordinates=676,487,69,33
+
+[rtBtnAdicionarSistema]
+Coordinates=426,300,69,33
 

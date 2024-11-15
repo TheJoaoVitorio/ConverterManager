@@ -10,7 +10,8 @@ uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts,
-  FMX.ListBox, System.Generics.Collections;
+  FMX.ListBox, System.Generics.Collections, FMX.TabControl, FMX.Memo.Types,
+  FMX.ScrollBox, FMX.Memo, System.Actions, FMX.ActnList;
 
 type
   TFHome = class(TForm)
@@ -25,7 +26,7 @@ type
     rtContent: TRectangle;
     headerAdicionarSistemas: TRectangle;
     Label3: TLabel;
-    Rectangle6: TRectangle;
+    rtBtnAdicionarSistema: TRectangle;
     Image3: TImage;
     Label4: TLabel;
     rtBarraPesquisa: TRectangle;
@@ -38,14 +39,14 @@ type
     rtTopoPopUp: TRectangle;
     imgClosePopUp: TImage;
     rtPopUpContent: TRectangle;
-    Rectangle3: TRectangle;
+    rtPopUpContentMain: TRectangle;
     rtFotoSistema: TRectangle;
     Rectangle5: TRectangle;
     rtTipoBase: TRectangle;
     Image2: TImage;
     imgTipoBase: TImage;
     rtPopUpLeft: TRectangle;
-    Rectangle4: TRectangle;
+    rtDados1: TRectangle;
     coluna1: TRectangle;
     coluna2: TRectangle;
     rtNomeSistema: TRectangle;
@@ -80,11 +81,55 @@ type
     Label10: TLabel;
     Rectangle16: TRectangle;
     edtDriverSistema: TEdit;
+    TabControl1: TTabControl;
+    TabItem1: TTabItem;
+    TabItem2: TTabItem;
+    rtDados2: TRectangle;
+    rtCol1: TRectangle;
+    rtUsuario: TRectangle;
+    Label11: TLabel;
+    Rectangle17: TRectangle;
+    edtUsuarioSistema: TEdit;
+    rtCaminhoBase: TRectangle;
+    Label12: TLabel;
+    Rectangle19: TRectangle;
+    edtCaminhoBaseSistema: TEdit;
+    rtObs: TRectangle;
+    Label90: TLabel;
+    Rectangle21: TRectangle;
+    rtCol2: TRectangle;
+    rtSenhaSistema: TRectangle;
+    Label15: TLabel;
+    Rectangle26: TRectangle;
+    edtSenhaSistema: TEdit;
+    rtServidor: TRectangle;
+    Label16: TLabel;
+    Rectangle28: TRectangle;
+    edtServidorSistema: TEdit;
+    edtObsSistema: TMemo;
+    ActionList1: TActionList;
+    NextTab: TNextTabAction;
+    rtBtnProxTabDados: TRectangle;
+    Label14: TLabel;
+    rtBtnVoltarTabDados: TRectangle;
+    Label17: TLabel;
+    rtBtnTabSalvarDados: TRectangle;
+    Label18: TLabel;
+    BackTab: TPreviousTabAction;
+    rtMensagemPopUp: TRectangle;
+    Image4: TImage;
+    lblMensagemPopUp: TLabel;
+    rtOkTabFecharPopUp: TRectangle;
+    Label19: TLabel;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lboxSistemasClick(Sender: TObject);
-    procedure Rectangle6Click(Sender: TObject);
+    procedure rtBtnAdicionarSistemaClick(Sender: TObject);
     procedure imgClosePopUpClick(Sender: TObject);
+    procedure rtBtnProxTabDadosClick(Sender: TObject);
+    procedure rtBtnVoltarTabDadosClick(Sender: TObject);
+    procedure rtBtnTabSalvarDadosClick(Sender: TObject);
+    procedure rtOkTabFecharPopUpClick(Sender: TObject);
   private
     procedure EditarSistemaClick(Sender: TObject);
     procedure ExcluirSistemaClick(Sender: TObject);
@@ -92,8 +137,16 @@ type
     function PegaIdListItem(Sender: TObject): Integer;
     procedure LimpaEdtPopUP;
     procedure BloquearEdicaoEdtPopUP;
+    procedure ChamaPopUpComDados(ID: Integer);
+    function GetValoresEdit: TObjectList<TSistemasVO>;
+    procedure DesbloquearEdicaoEdtPopUP;
+
 
   public
+    modoView   : Boolean;
+    modoEditar : Boolean;
+    modoCriacao: Boolean;
+
     procedure AddListSistema(ID :Integer;
                              Nome:String;
                              Cidade:String;
@@ -136,7 +189,7 @@ begin
   f.imgEditarSistema.OnClick   :=  EditarSistemaClick;
   f.imgExcluirSistema.OnClick  :=  ExcluirSistemaClick;
 
-  gapRight := lboxSistemas.Width / 10;
+  gapRight := (lboxSistemas.Width / 10) / Self.Width;
 
   with f do
   begin
@@ -203,9 +256,11 @@ begin
 end;
 
 
-procedure TFHome.Rectangle6Click(Sender: TObject);
+procedure TFHome.rtBtnAdicionarSistemaClick(Sender: TObject);
 begin
+    modoCriacao := True;
     rtFundoEscuro.Visible := True;
+    TabControl1.TabIndex := 0;
     lyPopUp.Visible := True;
 
     LimpaEdtPopUP;
@@ -213,28 +268,210 @@ begin
 end;
 
 
+procedure TFHome.rtBtnProxTabDadosClick(Sender: TObject);
+begin
+    NextTab.Execute;
+end;
+
+procedure TFHome.rtBtnTabSalvarDadosClick(Sender: TObject);
+var
+  listDados : TObjectList<TSistemasVO>;
+begin
+    ShowMessage('SALVAR DADOS');
+
+
+
+    if modoCriacao then
+    begin
+      listDados := GetValoresEdit;
+
+      if TGerenciadorController.InsertSistema(listDados) then
+        begin
+      
+          rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Text      := 'Sistema criado com sucesso!';
+          rtMensagemPopUp.Visible    := True;
+          modoEditar                 := False;
+          modoCriacao                := False;
+          DesbloquearEdicaoEdtPopUP;
+          
+          Exit;
+        end
+      else
+        begin
+          rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Text      := 'Não foi possivel concluir o processo!'; //mudar o ico
+          rtMensagemPopUp.Visible    := True;
+          modoEditar                 := False;
+          modoCriacao                := False;
+          DesbloquearEdicaoEdtPopUP;
+          
+          Exit;
+        end;
+
+    end
+
+    else if modoEditar then
+    begin
+      listDados := GetValoresEdit;
+      
+      if TGerenciadorController.UpdateSistema(listDados) then
+        begin
+      
+          rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Text      := 'Editado com sucesso!';
+          rtMensagemPopUp.Visible    := True;
+          modoEditar                 := False;
+          modoCriacao                := False;
+          DesbloquearEdicaoEdtPopUP;
+          
+          Exit;
+        end
+      else
+        begin
+          rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Text      := 'Não foi possivel concluir o processo!'; //mudar o ico
+          rtMensagemPopUp.Visible    := True;
+          modoEditar                 := False;
+          modoCriacao                := False;
+          DesbloquearEdicaoEdtPopUP;
+          
+          Exit;
+        end;
+      
+      ShowMessage('EDITAR SISTEMA');
+    end;
+
+end;
+
+
+function TFHome.GetValoresEdit : TObjectList<TSistemasVO>;
+var
+  item : TSistemasVO;
+  list : TObjectList<TSistemasVO>;
+begin
+
+  Result := TObjectList<TSistemasVO>.Create;
+
+
+  item := TSistemasVO.Create;
+
+  try
+    item.Sistema     := edtNomeSistema.Text;
+    item.Cidade      := edtCidadeSistema.Text;
+    item.Estado      := edtEstadoSistema.Text;
+    item.Versao      := edtVersaoSistema.Text;
+    item.TipoBase    := edtTipoBaseSistema.Text;
+    item.NomeBase    := edtNomeBaseSistema.Text;
+    item.Porta       := StrToInt(edtPortaSistema.Text);
+
+    item.Driver      := edtDriverSistema.Text;
+    item.Usuario     := edtUsuarioSistema.Text;
+    item.Senha       := edtSenhaSistema.Text;
+    item.Servidor    := edtServidorSistema.Text;
+    item.Observacoes := edtObsSistema.Lines.Text;
+
+    Result.Add(item);
+
+  except
+    item.Free;
+    raise;
+  end;
+
+end;
+
+procedure TFHome.rtBtnVoltarTabDadosClick(Sender: TObject);
+begin
+    BackTab.Execute;
+end;
+
+procedure TFHome.rtOkTabFecharPopUpClick(Sender: TObject);
+begin
+    rtMensagemPopUp.Visible := False;
+    lyPopUp.Visible := False;
+    rtFundoEscuro.Visible := False;
+    DesbloquearEdicaoEdtPopUP;
+    
+end;
+
 procedure TFHome.LimpaEdtPopUP;
 begin
-    edtNomeSistema.Text     := '';
-    edtCidadeSistema.Text   := '';
-    edtEstadoSistema.Text   := '';
-    edtVersaoSistema.Text   := '';
-    edtTipoBaseSistema.Text := '';
-    edtNomeBaseSistema.Text := '';
-    edtPortaSistema.Text    := '';
-    edtDriverSistema.Text   := '';
+    edtNomeSistema.Text        := '';
+    edtCidadeSistema.Text      := '';
+    edtEstadoSistema.Text      := '';
+    edtVersaoSistema.Text      := '';
+    edtTipoBaseSistema.Text    := '';
+    edtNomeBaseSistema.Text    := '';
+    edtPortaSistema.Text       := '';
+    edtDriverSistema.Text      := '';
+    edtUsuarioSistema.Text     := '';
+    edtSenhaSistema.Text       := '';
+    edtCaminhoBaseSistema.Text := '';
+    edtServidorSistema.Text    := '';
+    edtObsSistema.Text         := '';
 end;
+
+procedure TFHome.DesbloquearEdicaoEdtPopUP;
+begin
+    edtNomeSistema.CanFocus         := True;
+    edtCidadeSistema.CanFocus       := True;
+    edtEstadoSistema.CanFocus       := True;
+    edtVersaoSistema.CanFocus       := True;
+    edtTipoBaseSistema.CanFocus     := True;
+    edtNomeBaseSistema.CanFocus     := True;
+    edtPortaSistema.CanFocus        := True;
+    edtDriverSistema.CanFocus       := True;
+    edtUsuarioSistema.CanFocus      := True;
+    edtSenhaSistema.CanFocus        := True;
+    edtCaminhoBaseSistema.CanFocus  := True;
+    edtServidorSistema.CanFocus     := True;
+    edtObsSistema.CanFocus          := True;
+
+    edtNomeSistema.Cursor       := crIBeam;
+    edtCidadeSistema.Cursor     := crIBeam;
+    edtEstadoSistema.Cursor     := crIBeam;
+    edtVersaoSistema.Cursor     := crIBeam;
+    edtTipoBaseSistema.Cursor   := crIBeam;
+    edtNomeBaseSistema.Cursor   := crIBeam;
+    edtPortaSistema.Cursor      := crIBeam;
+    edtDriverSistema.Cursor     := crIBeam;
+    edtUsuarioSistema.Cursor    := crIBeam;
+    edtSenhaSistema.Cursor      := crIBeam;
+    edtCaminhoBaseSistema.Cursor:= crIBeam;
+    edtServidorSistema.Cursor   := crIBeam;
+    edtObsSistema.Cursor        := crIBeam;
+
+    edtNomeSistema.ReadOnly       := False;
+    edtCidadeSistema.ReadOnly     := False;
+    edtEstadoSistema.ReadOnly     := False;
+    edtVersaoSistema.ReadOnly     := False;
+    edtTipoBaseSistema.ReadOnly   := False;
+    edtNomeBaseSistema.ReadOnly   := False;
+    edtPortaSistema.ReadOnly      := False;
+    edtDriverSistema.ReadOnly     := False;
+    edtUsuarioSistema.ReadOnly    := False;
+    edtSenhaSistema.ReadOnly      := False;
+    edtCaminhoBaseSistema.ReadOnly:= False;
+    edtServidorSistema.ReadOnly   := False;
+    edtObsSistema.ReadOnly        := False;
+end;
+
 
 procedure TFHome.BloquearEdicaoEdtPopUP;
 begin
-    edtNomeSistema.CanFocus     := False;
-    edtCidadeSistema.CanFocus   := False;
-    edtEstadoSistema.CanFocus   := False;
-    edtVersaoSistema.CanFocus   := False;
-    edtTipoBaseSistema.CanFocus := False;
-    edtNomeBaseSistema.CanFocus := False;
-    edtPortaSistema.CanFocus    := False;
-    edtDriverSistema.CanFocus   := False;
+    edtNomeSistema.CanFocus         := False;
+    edtCidadeSistema.CanFocus       := False;
+    edtEstadoSistema.CanFocus       := False;
+    edtVersaoSistema.CanFocus       := False;
+    edtTipoBaseSistema.CanFocus     := False;
+    edtNomeBaseSistema.CanFocus     := False;
+    edtPortaSistema.CanFocus        := False;
+    edtDriverSistema.CanFocus       := False;
+    edtUsuarioSistema.CanFocus      := False;
+    edtSenhaSistema.CanFocus        := False;
+    edtCaminhoBaseSistema.CanFocus  := False;
+    edtServidorSistema.CanFocus     := False;
+    edtObsSistema.CanFocus          := False;
 
 
     edtNomeSistema.Cursor       := crNo;
@@ -245,69 +482,90 @@ begin
     edtNomeBaseSistema.Cursor   := crNo;
     edtPortaSistema.Cursor      := crNo;
     edtDriverSistema.Cursor     := crNo;
+    edtUsuarioSistema.Cursor    := crNo;
+    edtSenhaSistema.Cursor      := crNo;
+    edtCaminhoBaseSistema.Cursor:= crNo;
+    edtServidorSistema.Cursor   := crNo;
+    edtObsSistema.Cursor        := crNo;
 
-
-    edtNomeSistema.ReadOnly     := True;
-    edtCidadeSistema.ReadOnly   := True;
-    edtEstadoSistema.ReadOnly   := True;
-    edtVersaoSistema.ReadOnly   := True;
-    edtTipoBaseSistema.ReadOnly := True;
-    edtNomeBaseSistema.ReadOnly := True;
-    edtPortaSistema.ReadOnly    := True;
-    edtDriverSistema.ReadOnly   := True;
+    edtNomeSistema.ReadOnly       := True;
+    edtCidadeSistema.ReadOnly     := True;
+    edtEstadoSistema.ReadOnly     := True;
+    edtVersaoSistema.ReadOnly     := True;
+    edtTipoBaseSistema.ReadOnly   := True;
+    edtNomeBaseSistema.ReadOnly   := True;
+    edtPortaSistema.ReadOnly      := True;
+    edtDriverSistema.ReadOnly     := True;
+    edtUsuarioSistema.ReadOnly    := True;
+    edtSenhaSistema.ReadOnly      := True;
+    edtCaminhoBaseSistema.ReadOnly:= True;
+    edtServidorSistema.ReadOnly   := True;
+    edtObsSistema.ReadOnly        := True;
 end;
 
 
 procedure TFHome.ViewSistemaClick(Sender:Tobject);
 var
-  item: TListBoxItem;
-  parentControl: TFmxObject;
   ID_ITEM: Integer;
 
   list : TObjectList<TSistemasVO>;
   itemSistema : TSistemasVO;
 begin
-
+  modoView := True;
+  TabControl1.TabIndex := 0;
   ID_ITEM := PegaIdListItem(Sender);
   BloquearEdicaoEdtPopUP;
-
-  if not Assigned(list) then
-    list := TObjectList<TSistemasVO>.Create;
-
-  list := TGerenciadorController.GetSistema(ID_ITEM);
-
-  for itemSistema in list do
-  begin
-    edtNomeSistema.Text     := itemSistema.Sistema;
-    edtCidadeSistema.Text   := itemSistema.Cidade;
-    edtEstadoSistema.Text   := itemSistema.Estado;
-    edtVersaoSistema.Text   := itemSistema.Versao;
-    edtTipoBaseSistema.Text := itemSistema.TipoBase;
-    edtNomeBaseSistema.Text := itemSistema.NomeBase;
-    edtPortaSistema.Text    := IntToStr(itemSistema.Porta);
-    edtDriverSistema.Text   := itemSistema.Driver;
-  end;
-
-  rtFundoEscuro.Visible := True;
-  lyPopUp.Visible       := True;
+  rtBtnTabSalvarDados.Enabled := False;
+  
+  ChamaPopUpComDados(ID_ITEM)
 
 end;
 
 
+procedure TFHome.ChamaPopUpComDados(ID: Integer);
+var
+  list : TObjectList<TSistemasVO>;
+  itemSistema : TSistemasVO;
+begin
+    if not Assigned(list) then
+    list := TObjectList<TSistemasVO>.Create;
+
+    list := TGerenciadorController.GetSistema(ID);
+
+    for itemSistema in list do
+    begin
+      edtNomeSistema.Text        := itemSistema.Sistema;
+      edtCidadeSistema.Text      := itemSistema.Cidade;
+      edtEstadoSistema.Text      := itemSistema.Estado;
+      edtVersaoSistema.Text      := itemSistema.Versao;
+      edtTipoBaseSistema.Text    := itemSistema.TipoBase;
+      edtNomeBaseSistema.Text    := itemSistema.NomeBase;
+      edtPortaSistema.Text       := IntToStr(itemSistema.Porta);
+      edtDriverSistema.Text      := itemSistema.Driver;
+      edtUsuarioSistema.Text     := itemSistema.Usuario;
+      edtSenhaSistema.Text       := itemSistema.Senha;
+      edtCaminhoBaseSistema.Text := itemSistema.CaminhoBase;
+      edtServidorSistema.Text    := itemSistema.Servidor;
+      edtObsSistema.Lines.Add(itemSistema.Observacoes);
+    end;
+
+    rtFundoEscuro.Visible := True;
+    lyPopUp.Visible       := True;
+end;
+
 
 procedure TFHome.EditarSistemaClick(Sender:TObject);
 var
-  item : TListBoxItem;
-  frame: TFListSistema;
+  list : TObjectList<TSistemasVO>;
+  itemSistema : TSistemasVO;
+
   ID_ITEM:Integer;
 begin
-    item := TListBoxItem(Sender);
+    ID_ITEM := PegaIdListItem(Sender);
+    modoEditar := True;
+    TabControl1.TabIndex := 0;
 
-    frame := TFListSistema(item.Controls[1]);
-    ID_ITEM := item.Tag;
-
-    ShowMessage('EDITAR'+ IntToStr(ID_ITEM));
-
+    ChamaPopUpComDados(ID_ITEM); //alimentar os Edits com as informações
 end;
 
 
@@ -366,6 +624,12 @@ end;
 
 procedure TFHome.imgClosePopUpClick(Sender: TObject);
 begin
+    modoView    := False;
+    modoEditar  := False;
+    modoCriacao := False;
+    DesbloquearEdicaoEdtPopUP;
+    
+    rtBtnTabSalvarDados.Enabled := True;
     lyPopUp.Visible       := False;
     rtFundoEscuro.Visible := False;
 end;
