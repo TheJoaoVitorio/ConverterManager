@@ -7,6 +7,7 @@ uses
   uGerenciadorController,
   frameListSistema,
   uInstanciaConexao,
+  Vcl.Graphics,
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts,
@@ -14,6 +15,8 @@ uses
   FMX.ScrollBox, FMX.Memo, System.Actions, FMX.ActnList;
 
 type
+  TTiposBasesEnum = (Firebird, PostgreSQL,MySQL,Oracle, SQLServer,SQLite,MongoDB,DBF,CSV);
+
   TFHome = class(TForm)
     navBar: TRectangle;
     Image1: TImage;
@@ -130,7 +133,10 @@ type
     procedure rtBtnTabSalvarDadosClick(Sender: TObject);
     procedure rtOkTabFecharPopUpClick(Sender: TObject);
     procedure edtPortaSistemaTyping(Sender: TObject);
+    procedure edtTipoBaseSistemaChange(Sender: TObject);
   private
+    DatabaseImages: TDictionary<TTiposBasesEnum, string>;
+
     procedure ViewSistemaClick(Sender: Tobject);
     procedure EditarSistemaClick(Sender: TObject);
     procedure ExcluirSistemaClick(Sender: TObject);
@@ -144,6 +150,8 @@ type
     procedure BloquearEdicaoEdtPopUP;
     procedure LimpaEdtPopUP;
     procedure ListarSistemas;
+    function MapStringToEnum(const AText: string): TTiposBasesEnum;
+    procedure PathImagesTiposBases;
   public
     modoView   : Boolean;
     modoEditar : Boolean;
@@ -174,6 +182,7 @@ var
 begin
   rtFundoEscuro.Visible := False;
   ListarSistemas;
+  PathImagesTiposBases;
 
 end;
 
@@ -629,6 +638,65 @@ begin
 end;
 
 
+function TFHome.MapStringToEnum(const AText: string): TTiposBasesEnum;
+begin
+  if SameText(AText, 'Firebird') then
+    Result := Firebird
+  else if SameText(AText, 'PostgreSQL') then
+    Result := PostgreSQL
+  else if SameText(AText, 'MySQL') then
+    Result := MySQL
+  else if SameText(AText, 'Oracle') then
+    Result := Oracle
+  else if SameText(AText, 'SQLServer') then
+    Result := SQLServer
+  else if SameText(AText, 'SQLite') then
+    Result := SQLite
+  else if SameText(AText, 'MongoDB') then
+    Result := MongoDB
+  else if SameText(AText, 'DBF') then
+    Result := DBF
+  else if SameText(AText, 'CSV') then
+    Result := CSV
+  else
+    Result := TTiposBasesEnum(-1);  // Valor inválido
+end;
+
+
+procedure TFHome.PathImagesTiposBases;
+begin
+    DatabaseImages := TDictionary<TTiposBasesEnum, string>.Create;
+
+    DatabaseImages.Add(Firebird,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\firebird.png'));
+
+    DatabaseImages.Add(PostgreSQL,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\postgresql.png'));
+
+    DatabaseImages.Add(MySQL,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\mysql.png'));
+
+    DatabaseImages.Add(Oracle,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\oracle.png'));
+
+    DatabaseImages.Add(SQLServer,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\sqlserver.png'));
+
+    DatabaseImages.Add(SQLite,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\sqlite.png'));
+
+    DatabaseImages.Add(MongoDB,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\mongodb.png'));
+
+    DatabaseImages.Add(DBF,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\dbf.png'));
+
+    DatabaseImages.Add(CSV,
+                       ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\csv.png'));
+
+end;
+
+
 procedure TFHome.edtPortaSistemaTyping(Sender: TObject);
 var
   Key : Char;
@@ -650,6 +718,34 @@ begin
 
 end;
 
+
+procedure TFHome.edtTipoBaseSistemaChange(Sender: TObject);
+var
+  TipoBase: TTiposBasesEnum;
+  ImagePath, TextEdit: string;
+begin
+  TextEdit := Trim(edtTipoBaseSistema.Text);
+  // Usa a função para mapear a string digitada para o enum
+  TipoBase := MapStringToEnum(TextEdit);
+
+  // Se o valor de TipoBase foi atribuído corretamente, busca a imagem correspondente
+  if TipoBase <> TTiposBasesEnum(-1) then
+  begin
+    if DatabaseImages.TryGetValue(TipoBase, ImagePath) then
+    begin
+      imgTipoBase.Bitmap.LoadFromFile(ImagePath); // Carrega a imagem correspondente
+    end
+    else
+    begin
+      //imgTipoBase;  // img padrão
+    end;
+  end
+  else
+  begin
+    //imgTipoBase.Bitmap.Free; // imgPadrão
+  end;
+
+end;
 
 procedure TFHome.imgCloseClick(Sender: TObject);
 begin
