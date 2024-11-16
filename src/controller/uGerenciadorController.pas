@@ -248,7 +248,7 @@ begin
                      '     ICMS_PADRAO_ESTADO = :ICMS_PADRAO_ESTADO, '+
                      '     MODULOS = :MODULOS, '+
                      '     PATH_IMG = :PATH_IMG  '+
-                     'WHERE'+
+                     'WHERE '+
                           'ID = :ID';
 
 

@@ -143,6 +143,7 @@ type
     procedure DesbloquearEdicaoEdtPopUP;
     procedure BloquearEdicaoEdtPopUP;
     procedure LimpaEdtPopUP;
+    procedure ListarSistemas;
   public
     modoView   : Boolean;
     modoEditar : Boolean;
@@ -172,7 +173,15 @@ var
   sistema: TSistemasVO;
 begin
   rtFundoEscuro.Visible := False;
+  ListarSistemas;
 
+end;
+
+
+procedure TFHome.ListarSistemas;
+var
+  sistema: TSistemasVO;
+begin
   if not Assigned(listSistema) then
     listSistema := TObjectList<TSistemasVO>.Create;
 
@@ -286,9 +295,7 @@ begin
 
   Result := TObjectList<TSistemasVO>.Create;
 
-
   item := TSistemasVO.Create;
-
   try
     item.Sistema     := edtNomeSistema.Text;
     item.Cidade      := edtCidadeSistema.Text;
@@ -298,18 +305,16 @@ begin
     item.NomeBase    := edtNomeBaseSistema.Text;
 
     if edtPortaSistema.Text = '' then
-      item.Porta := 0;
-      
-    item.Porta       := StrToInt(edtPortaSistema.Text);
+      item.Porta := 0
+    else
+      item.Porta       := StrToInt(edtPortaSistema.Text);
 
     item.Driver      := edtDriverSistema.Text;
     item.Usuario     := edtUsuarioSistema.Text;
     item.Senha       := edtSenhaSistema.Text;
     item.Servidor    := edtServidorSistema.Text;
     item.Observacoes := edtObsSistema.Lines.Text;
-
     Result.Add(item);
-
   except
     item.Free;
     raise;
@@ -415,6 +420,8 @@ begin
         begin
       
           rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Margins.Left := 10;
+          lblMensagemPopUp.Margins.Right:= 10;
           lblMensagemPopUp.Text      := 'Editado com sucesso!';
           rtMensagemPopUp.Visible    := True;
           modoEditar                 := False;
@@ -426,6 +433,8 @@ begin
       else
         begin
           rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Margins.Left := 10;
+          lblMensagemPopUp.Margins.Right:= 10;
           lblMensagemPopUp.Text      := 'Não foi possivel concluir o processo!'; //mudar o ico
           rtMensagemPopUp.Visible    := True;
           modoEditar                 := False;
@@ -453,7 +462,8 @@ begin
     lyPopUp.Visible := False;
     rtFundoEscuro.Visible := False;
     DesbloquearEdicaoEdtPopUP;
-    
+    lboxSistemas.Clear;
+    ListarSistemas;
 end;
 
 
@@ -654,6 +664,7 @@ begin
     modoCriacao := False;
     DesbloquearEdicaoEdtPopUP;
     
+
     rtBtnTabSalvarDados.Enabled := True;
     lyPopUp.Visible       := False;
     rtFundoEscuro.Visible := False;

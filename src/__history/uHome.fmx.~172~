@@ -213,7 +213,6 @@ object FHome: TFHome
           Size.PlatformDefault = False
           StyleLookup = 'lboxSistemasStyle1'
           TabOrder = 0
-          OnClick = lboxSistemasClick
           DisableFocusEffect = True
           DefaultItemStyles.ItemStyle = ''
           DefaultItemStyles.GroupHeaderStyle = ''
@@ -1654,7 +1653,6 @@ object FHome: TFHome
     Size.Width = 707.000000000000000000
     Size.Height = 517.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 3
     object rtPopUp: TRectangle
       Align = Client
@@ -2139,6 +2137,7 @@ object FHome: TFHome
                         Size.PlatformDefault = False
                         TextPrompt = 'Ex: 5432'
                         StyledSettings = []
+                        OnTyping = edtPortaSistemaTyping
                       end
                     end
                   end
@@ -2362,7 +2361,7 @@ object FHome: TFHome
                         Size.Width = 172.000000000000000000
                         Size.Height = 22.000000000000000000
                         Size.PlatformDefault = False
-                        TextPrompt = 'Ex: 5432'
+                        TextPrompt = 'Ex: PG'
                         StyledSettings = []
                       end
                     end
@@ -2853,6 +2852,7 @@ object FHome: TFHome
           end
           object rtOkTabFecharPopUp: TRectangle
             Align = MostTop
+            Cursor = crHandPoint
             Fill.Color = claDodgerblue
             Margins.Left = 150.000000000000000000
             Margins.Top = 15.000000000000000000

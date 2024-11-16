@@ -286,9 +286,7 @@ begin
 
   Result := TObjectList<TSistemasVO>.Create;
 
-
   item := TSistemasVO.Create;
-
   try
     item.Sistema     := edtNomeSistema.Text;
     item.Cidade      := edtCidadeSistema.Text;
@@ -298,18 +296,16 @@ begin
     item.NomeBase    := edtNomeBaseSistema.Text;
 
     if edtPortaSistema.Text = '' then
-      item.Porta := 0;
-      
-    item.Porta       := StrToInt(edtPortaSistema.Text);
+      item.Porta := 0
+    else
+      item.Porta       := StrToInt(edtPortaSistema.Text);
 
     item.Driver      := edtDriverSistema.Text;
     item.Usuario     := edtUsuarioSistema.Text;
     item.Senha       := edtSenhaSistema.Text;
     item.Servidor    := edtServidorSistema.Text;
     item.Observacoes := edtObsSistema.Lines.Text;
-
     Result.Add(item);
-
   except
     item.Free;
     raise;
@@ -626,12 +622,16 @@ var
 begin
   Edit := TEdit(Sender);
 
-  // Verifica se o texto não excede 4 caracteres ou se a tecla é inválida
-  if (Edit.Text.Length >= 5) or (not (Edit.Text.Chars[Edit.Text.Length - 1] in ['0'..'9'])) then
+  // Verifique se o texto não está vazio antes de acessar o último caractere
+  if Edit.Text.Length > 0 then
   begin
-    // Remove o último caractere inválido
-    Edit.Text := Edit.Text.Remove(Edit.Text.Length - 1);
-    Edit.GoToTextEnd; // Move o cursor para o final
+    Key := Edit.Text.Chars[Edit.Text.Length - 1];
+    if not (Key in ['0'..'9']) then
+    begin
+      // Remove o último caractere inválido digitado
+      Edit.Text := Edit.Text.Remove(Edit.Text.Length - 1);
+      Edit.GoToTextEnd; // Move o cursor para o final
+    end;
   end;
 
 end;

@@ -130,7 +130,6 @@ type
     procedure rtBtnTabSalvarDadosClick(Sender: TObject);
     procedure rtOkTabFecharPopUpClick(Sender: TObject);
     procedure edtPortaSistemaTyping(Sender: TObject);
-    procedure edtPortaSistemaExit(Sender: TObject);
   private
     procedure ViewSistemaClick(Sender: Tobject);
     procedure EditarSistemaClick(Sender: TObject);
@@ -287,9 +286,7 @@ begin
 
   Result := TObjectList<TSistemasVO>.Create;
 
-
   item := TSistemasVO.Create;
-
   try
     item.Sistema     := edtNomeSistema.Text;
     item.Cidade      := edtCidadeSistema.Text;
@@ -299,18 +296,16 @@ begin
     item.NomeBase    := edtNomeBaseSistema.Text;
 
     if edtPortaSistema.Text = '' then
-      item.Porta := 0;
-      
-    item.Porta       := StrToInt(edtPortaSistema.Text);
+      item.Porta := 0
+    else
+      item.Porta       := StrToInt(edtPortaSistema.Text);
 
     item.Driver      := edtDriverSistema.Text;
     item.Usuario     := edtUsuarioSistema.Text;
     item.Senha       := edtSenhaSistema.Text;
     item.Servidor    := edtServidorSistema.Text;
     item.Observacoes := edtObsSistema.Lines.Text;
-
     Result.Add(item);
-
   except
     item.Free;
     raise;
@@ -416,6 +411,8 @@ begin
         begin
       
           rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Margins.Left := 10;
+          lblMensagemPopUp.Margins.Right:= 10;
           lblMensagemPopUp.Text      := 'Editado com sucesso!';
           rtMensagemPopUp.Visible    := True;
           modoEditar                 := False;
@@ -427,6 +424,8 @@ begin
       else
         begin
           rtPopUpContentMain.Enabled := True;
+          lblMensagemPopUp.Margins.Left := 10;
+          lblMensagemPopUp.Margins.Right:= 10;
           lblMensagemPopUp.Text      := 'Não foi possivel concluir o processo!'; //mudar o ico
           rtMensagemPopUp.Visible    := True;
           modoEditar                 := False;
@@ -620,18 +619,6 @@ begin
 end;
 
 
-procedure TFHome.edtPortaSistemaExit(Sender: TObject);
-var
-  Valor : Integer;
-begin
-
-  if (TEdit(Sender).Text.Length <> 4) or (not TryStrToInt(TEdit(Sender).Text, Valor)) then
-  begin
-    ShowMessage('A porta deve conter exatamente 4 números.');
-    TEdit(Sender).SetFocus; // Retorna o foco ao campo
-  end;
-end;
-
 procedure TFHome.edtPortaSistemaTyping(Sender: TObject);
 var
   Key : Char;
@@ -639,12 +626,16 @@ var
 begin
   Edit := TEdit(Sender);
 
-  // Verifica se o texto não excede 4 caracteres ou se a tecla é inválida
-  if (Edit.Text.Length >= 5) or (not (Edit.Text.Chars[Edit.Text.Length - 1] in ['0'..'9'])) then
+  // Verifique se o texto não está vazio antes de acessar o último caractere
+  if Edit.Text.Length > 0 then
   begin
-    // Remove o último caractere inválido
-    Edit.Text := Edit.Text.Remove(Edit.Text.Length - 1);
-    Edit.GoToTextEnd; // Move o cursor para o final
+    Key := Edit.Text.Chars[Edit.Text.Length - 1];
+    if not (Key in ['0'..'9']) then
+    begin
+      // Remove o último caractere inválido digitado
+      Edit.Text := Edit.Text.Remove(Edit.Text.Length - 1);
+      Edit.GoToTextEnd; // Move o cursor para o final
+    end;
   end;
 
 end;
@@ -662,6 +653,8 @@ begin
     modoEditar  := False;
     modoCriacao := False;
     DesbloquearEdicaoEdtPopUP;
+    lboxSistemas.BeginUpdate;
+    lboxSistemas.EndUpdate;
     
     rtBtnTabSalvarDados.Enabled := True;
     lyPopUp.Visible       := False;
