@@ -65,7 +65,6 @@ begin
 
     finally
       if Assigned(vQuery) then vQuery.Free;
-      vSistema.Free;
     end;
 
 
@@ -135,7 +134,6 @@ begin
       end;
     finally
       if Assigned(vQuery) then vQuery.Free;
-      vSistema.Free;
     end;
 
 end;
@@ -207,7 +205,6 @@ begin
       end;
     finally
       if Assigned(vQuery) then vQuery.Free;
-      item.Free;
     end;
 
 
@@ -296,7 +293,6 @@ begin
       end;
     finally
       if Assigned(vQuery) then vQuery.Free;
-      item.Free;
     end;
 
 

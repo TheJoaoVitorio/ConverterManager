@@ -7,7 +7,7 @@ uses
   uGerenciadorController,
   frameListSistema,
   uInstanciaConexao,
-  Vcl.Graphics,
+  Vcl.Graphics, System.StrUtils,
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs,
   FMX.Objects, FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts,
@@ -165,6 +165,7 @@ type
     procedure ListarSistemas;
     function MapStringToEnum(const AText: string): TTiposBasesEnum;
     procedure PathImagesTiposBases;
+    procedure AtualizarInterfacePosOperacao(const mensagem: string);
     //procedure BeforeDestruction ; override;
   public
     modoView   : Boolean;
@@ -208,17 +209,14 @@ procedure TFHome.FormDestroy(Sender: TObject);
 begin
   if Assigned(DatabaseImages) then
     FreeAndNil(DatabaseImages);
-
-  if Assigned(listSistema) then
-    FreeAndNil(listSistema);
 end;
 
 procedure TFHome.ListarSistemas;
 var
   sistema: TSistemasVO;
 begin
-  if not Assigned(listSistema) then
-    listSistema := TObjectList<TSistemasVO>.Create;
+  //if not Assigned(listSistema) then
+  //  listSistema := TObjectList<TSistemasVO>.Create;
 
   listSistema := TGerenciadorController.GetSistemas;
   lboxSistemas.ItemHeight := 50;
@@ -236,7 +234,6 @@ begin
     end;
   end;
 
-  //sistema.Free;
 
 end;
 
@@ -410,7 +407,6 @@ procedure TFHome.rtBtnDeletarSistemaClick(Sender: TObject);
 begin
     if not ID_SISTEMA_DELETAR < 0 then
     begin
-
         TGerenciadorController.DeleteSistema(ID_SISTEMA_DELETAR);
         lyDeleteSistemaPopUp.Visible := False;
         rtFundoEscuro.Visible := False;
@@ -434,78 +430,38 @@ end;
 
 procedure TFHome.rtBtnTabSalvarDadosClick(Sender: TObject);
 var
-  listDados : TObjectList<TSistemasVO>;
+  listDados: TObjectList<TSistemasVO>;
+  sucesso: Boolean;
+  mensagem: string;
 begin
+  listDados := GetValoresEdit;
+
+  if modoCriacao then
+    sucesso := TGerenciadorController.InsertSistema(listDados)
+  else if modoEditar then
+    sucesso := TGerenciadorController.UpdateSistema(listDados)
+  else
+    Exit;
+
+  if sucesso then
+    mensagem := IfThen(modoCriacao, 'Sistema criado com sucesso!', 'Editado com sucesso!')
+  else
+    mensagem := 'Não foi possível concluir o processo!';
+
+  AtualizarInterfacePosOperacao(mensagem);
+end;
 
 
-    if modoCriacao then
-    begin
-      listDados := GetValoresEdit;
-
-      if TGerenciadorController.InsertSistema(listDados) then
-        begin
-      
-          rtPopUpContentMain.Enabled := True;
-          lblMensagemPopUp.Text      := 'Sistema criado com sucesso!';
-          rtMensagemPopUp.Visible    := True;
-          modoEditar                 := False;
-          modoCriacao                := False;
-          DesbloquearEdicaoEdtPopUP;
-
-
-          Exit;
-        end
-      else
-        begin
-          rtPopUpContentMain.Enabled := True;
-          lblMensagemPopUp.Text      := 'Não foi possivel concluir o processo!'; //mudar o ico
-          rtMensagemPopUp.Visible    := True;
-          modoEditar                 := False;
-          modoCriacao                := False;
-          DesbloquearEdicaoEdtPopUP;
-
-
-          Exit;
-        end;
-
-    end
-
-    else if modoEditar then
-    begin
-      listDados := GetValoresEdit;
-      
-      if TGerenciadorController.UpdateSistema(listDados) then
-        begin
-      
-          rtPopUpContentMain.Enabled := True;
-          lblMensagemPopUp.Margins.Left := 10;
-          lblMensagemPopUp.Margins.Right:= 10;
-          lblMensagemPopUp.Text      := 'Editado com sucesso!';
-          rtMensagemPopUp.Visible    := True;
-          modoEditar                 := False;
-          modoCriacao                := False;
-          DesbloquearEdicaoEdtPopUP;
-
-
-          Exit;
-        end
-      else
-        begin
-          rtPopUpContentMain.Enabled := True;
-          lblMensagemPopUp.Margins.Left := 10;
-          lblMensagemPopUp.Margins.Right:= 10;
-          lblMensagemPopUp.Text      := 'Não foi possivel concluir o processo!'; //mudar o ico
-          rtMensagemPopUp.Visible    := True;
-          modoEditar                 := False;
-          modoCriacao                := False;
-          DesbloquearEdicaoEdtPopUP;
-
-
-          Exit;
-        end;
-
-    end;
-
+procedure TFHome.AtualizarInterfacePosOperacao(const mensagem: string);
+begin
+  rtPopUpContentMain.Enabled := True;
+  lblMensagemPopUp.Text := mensagem;
+  lblMensagemPopUp.Margins.Left := 10;
+  lblMensagemPopUp.Margins.Right := 10;
+  rtMensagemPopUp.Visible := True;
+  modoEditar := False;
+  modoCriacao := False;
+  DesbloquearEdicaoEdtPopUP;
 end;
 
 
@@ -538,7 +494,7 @@ begin
   BloquearEdicaoEdtPopUP;
   rtBtnTabSalvarDados.Enabled := False;
   
-  ChamaPopUpComDados(ID_ITEM)
+  ChamaPopUpComDados(ID_ITEM);
 
 end;
 

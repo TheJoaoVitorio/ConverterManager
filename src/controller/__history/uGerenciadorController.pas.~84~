@@ -10,13 +10,15 @@ uses
 type
   TGerenciadorController = class
     private
-    class function DeleteSistema(Id: Integer): Boolean; static;
+
 
     public
       class function UpdateSistema(listSistema : TObjectList<TSistemasVO>): Boolean;
       class function InsertSistema(listSistema: TObjectList<TSistemasVO>): Boolean;
       class function GetSistemas : TObjectList<TSistemasVO>;
       class function GetSistema (Id : Integer) : TObjectList<TSistemasVO>;
+
+      class function DeleteSistema(Id: Integer): Boolean;
   end;
 
 implementation
@@ -37,7 +39,7 @@ begin
         with vQuery do
         begin
             Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
-            SQL.Text   := 'SELECT * FROM SISTEMAS';
+            SQL.Text   := 'SELECT * FROM SISTEMAS order by SISTEMA asc';
 
             Open;
 
@@ -63,6 +65,7 @@ begin
 
     finally
       if Assigned(vQuery) then vQuery.Free;
+      vSistema.Free;
     end;
 
 
@@ -131,7 +134,7 @@ begin
 
       end;
     finally
-      if Assigned(vQuery) then vQuery.Free;      
+      if Assigned(vQuery) then vQuery.Free;
     end;
 
 end;
@@ -248,7 +251,7 @@ begin
                      '     ICMS_PADRAO_ESTADO = :ICMS_PADRAO_ESTADO, '+
                      '     MODULOS = :MODULOS, '+
                      '     PATH_IMG = :PATH_IMG  '+
-                     'WHERE'+
+                     'WHERE '+
                           'ID = :ID';
 
 

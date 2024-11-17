@@ -145,6 +145,7 @@ type
     procedure edtTipoBaseSistemaChange(Sender: TObject);
     procedure rtBtnDeletarSistemaClick(Sender: TObject);
     procedure rtBtnNaoDeletarSistemaClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     ID_SISTEMA_DELETAR : Integer;
     DatabaseImages: TDictionary<TTiposBasesEnum, string>;
@@ -203,12 +204,18 @@ begin
 end;
 
 
+procedure TFHome.FormDestroy(Sender: TObject);
+begin
+  if Assigned(DatabaseImages) then
+    FreeAndNil(DatabaseImages);
+end;
+
 procedure TFHome.ListarSistemas;
 var
   sistema: TSistemasVO;
 begin
-  if not Assigned(listSistema) then
-    listSistema := TObjectList<TSistemasVO>.Create;
+  //if not Assigned(listSistema) then
+  //  listSistema := TObjectList<TSistemasVO>.Create;
 
   listSistema := TGerenciadorController.GetSistemas;
   lboxSistemas.ItemHeight := 50;
@@ -226,7 +233,6 @@ begin
     end;
   end;
 
-  //sistema.Free;
 
 end;
 
@@ -355,8 +361,8 @@ var
   list : TObjectList<TSistemasVO>;
   itemSistema : TSistemasVO;
 begin
-    if not Assigned(list) then
-      list := TObjectList<TSistemasVO>.Create;
+    //if not Assigned(list) then
+    //  list := TObjectList<TSistemasVO>.Create;
 
     list := TGerenciadorController.GetSistema(ID);
 
@@ -400,7 +406,6 @@ procedure TFHome.rtBtnDeletarSistemaClick(Sender: TObject);
 begin
     if not ID_SISTEMA_DELETAR < 0 then
     begin
-
         TGerenciadorController.DeleteSistema(ID_SISTEMA_DELETAR);
         lyDeleteSistemaPopUp.Visible := False;
         rtFundoEscuro.Visible := False;
