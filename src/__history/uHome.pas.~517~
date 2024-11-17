@@ -143,9 +143,9 @@ type
     procedure rtOkTabFecharPopUpClick(Sender: TObject);
     procedure edtPortaSistemaTyping(Sender: TObject);
     procedure edtTipoBaseSistemaChange(Sender: TObject);
-    procedure rtPopUpLeftClick(Sender: TObject);
     procedure rtBtnDeletarSistemaClick(Sender: TObject);
     procedure rtBtnNaoDeletarSistemaClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
   private
     ID_SISTEMA_DELETAR : Integer;
     DatabaseImages: TDictionary<TTiposBasesEnum, string>;
@@ -165,6 +165,7 @@ type
     procedure ListarSistemas;
     function MapStringToEnum(const AText: string): TTiposBasesEnum;
     procedure PathImagesTiposBases;
+    //procedure BeforeDestruction ; override;
   public
     modoView   : Boolean;
     modoEditar : Boolean;
@@ -179,6 +180,8 @@ type
                              Usuario:String;
                              Senha:String;
                              NomeBase:String);
+
+
   end;
 
 var
@@ -200,6 +203,15 @@ begin
 
 end;
 
+
+procedure TFHome.FormDestroy(Sender: TObject);
+begin
+  if Assigned(DatabaseImages) then
+    FreeAndNil(DatabaseImages);
+
+  if Assigned(listSistema) then
+    FreeAndNil(listSistema);
+end;
 
 procedure TFHome.ListarSistemas;
 var
@@ -223,6 +235,9 @@ begin
       lboxSistemas.EndUpdate;
     end;
   end;
+
+  //sistema.Free;
+
 end;
 
 
@@ -313,7 +328,6 @@ end;
 function TFHome.GetValoresEdit : TObjectList<TSistemasVO>;
 var
   item : TSistemasVO;
-  list : TObjectList<TSistemasVO>;
 begin
 
   Result := TObjectList<TSistemasVO>.Create;
@@ -352,7 +366,7 @@ var
   itemSistema : TSistemasVO;
 begin
     if not Assigned(list) then
-    list := TObjectList<TSistemasVO>.Create;
+      list := TObjectList<TSistemasVO>.Create;
 
     list := TGerenciadorController.GetSistema(ID);
 
@@ -375,6 +389,7 @@ begin
 
     rtFundoEscuro.Visible := True;
     lyPopUp.Visible       := True;
+
 end;
 
 
@@ -398,6 +413,9 @@ begin
 
         TGerenciadorController.DeleteSistema(ID_SISTEMA_DELETAR);
         lyDeleteSistemaPopUp.Visible := False;
+        rtFundoEscuro.Visible := False;
+        lboxSistemas.Clear;
+        ListarSistemas;
     end;
 
 end;
@@ -405,6 +423,7 @@ end;
 procedure TFHome.rtBtnNaoDeletarSistemaClick(Sender: TObject);
 begin
     lyDeleteSistemaPopUp.Visible := False;
+    rtFundoEscuro.Visible := False;
 end;
 
 procedure TFHome.rtBtnProxTabDadosClick(Sender: TObject);
@@ -432,7 +451,8 @@ begin
           modoEditar                 := False;
           modoCriacao                := False;
           DesbloquearEdicaoEdtPopUP;
-          
+
+
           Exit;
         end
       else
@@ -443,7 +463,8 @@ begin
           modoEditar                 := False;
           modoCriacao                := False;
           DesbloquearEdicaoEdtPopUP;
-          
+
+
           Exit;
         end;
 
@@ -464,7 +485,8 @@ begin
           modoEditar                 := False;
           modoCriacao                := False;
           DesbloquearEdicaoEdtPopUP;
-          
+
+
           Exit;
         end
       else
@@ -477,7 +499,8 @@ begin
           modoEditar                 := False;
           modoCriacao                := False;
           DesbloquearEdicaoEdtPopUP;
-          
+
+
           Exit;
         end;
 
@@ -508,9 +531,6 @@ end;
 procedure TFHome.ViewSistemaClick(Sender:Tobject);
 var
   ID_ITEM: Integer;
-
-  list : TObjectList<TSistemasVO>;
-  itemSistema : TSistemasVO;
 begin
   modoView := True;
   TabControl1.TabIndex := 0;
@@ -525,9 +545,6 @@ end;
 
 procedure TFHome.EditarSistemaClick(Sender:TObject);
 var
-  list : TObjectList<TSistemasVO>;
-  itemSistema : TSistemasVO;
-
   ID_ITEM:Integer;
 begin
     ID_ITEM := PegaIdListItem(Sender);
@@ -543,10 +560,13 @@ begin
     ID_SISTEMA_DELETAR := PegaIdListItem(Sender);
 
     lyDeleteSistemaPopUp.Visible := True;
+    rtFundoEscuro.Visible        := True;
 end;
 
 
 /// Actions
+
+
 procedure TFHome.BloquearEdicaoEdtPopUP;
 begin
     edtNomeSistema.CanFocus         := False;
@@ -789,6 +809,3 @@ end;
 
 
 end.
-
-
-

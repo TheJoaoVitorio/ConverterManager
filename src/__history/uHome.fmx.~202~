@@ -1733,7 +1733,6 @@ object FHome: TFHome
             Size.Height = 412.000000000000000000
             Size.PlatformDefault = False
             Stroke.Kind = None
-            OnClick = rtPopUpLeftClick
             object rtFotoSistema: TRectangle
               Fill.Color = xFF242C38
               Size.Width = 183.000000000000000000
@@ -2886,6 +2885,167 @@ object FHome: TFHome
               Text = 'OK'
               TabOrder = 0
             end
+          end
+        end
+      end
+    end
+  end
+  object lyDeleteSistemaPopUp: TLayout
+    Align = Center
+    Size.Width = 507.000000000000000000
+    Size.Height = 261.000000000000000000
+    Size.PlatformDefault = False
+    Visible = False
+    TabOrder = 6
+    object rtDeleteSistema: TRectangle
+      Align = Client
+      Fill.Color = xFF1A1F27
+      Size.Width = 507.000000000000000000
+      Size.Height = 261.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claDodgerblue
+      XRadius = 8.000000000000000000
+      YRadius = 8.000000000000000000
+      object Image5: TImage
+        MultiResBitmap = <
+          item
+            Width = 64
+            Height = 64
+            PNG = {
+              89504E470D0A1A0A0000000D4948445200000040000000400806000000AA6971
+              DE0000000473424954080808087C086488000003C949444154789CED9AC96B14
+              4114C65F2771091A41A3A262DC90183090BF2206455408E2C180671104F5E041
+              F02078108D28242A225E45703D1A448FE255718D0797B8807A307101B79F87AE
+              C1CA9BEAE9EE999EAE09E90F8690AEAFDFFBDE37B575F588142850A040810205
+              0A14989E08E208007908A9178220A85863535E421A158501BE05F8464BDA1BE2
+              C6946FA49DB3A67D0F280CF02DC03752CF01537D5FA031ED7B4061806F01BE51
+              EC03EA2564AAA030C0B700DF280CF02DC03752AF0251D0B3AF5E2DB2DE4166B5
+              1A4DFB1E5018E05B806F643607C48DC95AC72CD02A22BD22B245443A81C722B2
+              C8347F14914F22F2BC961C51892721F304F1F9570017816F5A4B126421C08B01
+              C01CE038F0A39AC22D1C23EC3D550BC9DD006015F0B0C6C26D3C0056BA72A57E
+              33143596E3781999F75E44AE89C84D117923E1B81709E7820E11D9663E4B1DF7
+              BE11918D41103C4A9531690F88E3D5F80D8E02DB81D8550B6832DC51479C7740
+              C75433E00A302795E830DF5CE0BA23DE3D60F654316010A87AF924EC0DA71C71
+              8FA40992C8805A40B8D4E9D9FE922E1EE84910AB47FD1F009755ECEF241D0A39
+              19704EA51903DA14E724F017D85D21CE6EC31954D7E7118E7F1BC349C5D5D500
+              6036F055A519509C13569BD304ABF8124EA8F65D2AC70449E6821C0CD8A852BC
+              049AADF66EE0B7E2FC06765A9C81084EB7C569065E2BCE864630E08C4A71DAC1
+              E9077E2ADE5FC26F5D7FF3186EBF23CE90E20D2511586F03EEAA147D11BC2813
+              12156F626C52DC3B4904D6DB80E72AC5DA0A5C9709898A37F7AF53FCA74904D6
+              DB800995626E0CBF9FF2F18EB91659BCB9B74DDD33DE08072269373A8BC57D90
+              D364DAB2450E3DE0994AD15981EB9AF06CC4ED13BA14FF4923FE3E608D384E76
+              4C61C332B9C7FC317F4BCB662022C3800441703622B68D778D30043436EB0B11
+              C5FF12911DE6F3CBBA5E32C1D51374ECC7B16A2A74B77A610C68B1F267B5119A
+              41F976B8B7110D00D8A334ECB7DAA236397A89DCA7DAF7AA1C9FB18CF60ACA1F
+              86DE52FE307420AA788B5332E180BA3E0F78AF72C4EF02F302B0181857026F61
+              3D13185E358FC32DC0888AFD055898751D350138EA180AFE0F44F202D00ADC77
+              88BD4A7547626DC00D47BC744762790268075E38447F040E26116E8C3C087C72
+              C41905DAF3A8A56A102E7BAF1CE2215CC686810DC06A6096F9AC01FA081FADF5
+              6457C24B60BDEFFA12015800DC8E28A41A8C00F37DD7950AC04CE030E5C76569
+              30011C0266F8AEA76A00CB800BA47B39FA15380FB8DE104D4243FFE8D106FF5F
+              8F6F15912E11592E224B4CF307111913912712BE36BB1D04C18F2471FF01DE67
+              05F70C694ACB0000000049454E44AE426082}
+          end>
+        Align = MostTop
+        Margins.Left = 120.000000000000000000
+        Margins.Top = 30.000000000000000000
+        Margins.Right = 120.000000000000000000
+        Position.X = 120.000000000000000000
+        Position.Y = 30.000000000000000000
+        Size.Width = 267.000000000000000000
+        Size.Height = 83.000000000000000000
+        Size.PlatformDefault = False
+        WrapMode = Center
+      end
+      object Label13: TLabel
+        Align = MostTop
+        StyledSettings = []
+        Margins.Left = 125.000000000000000000
+        Margins.Right = 120.000000000000000000
+        Position.X = 125.000000000000000000
+        Position.Y = 113.000000000000000000
+        Size.Width = 262.000000000000000000
+        Size.Height = 48.000000000000000000
+        Size.PlatformDefault = False
+        TextSettings.Font.Family = 'Montserrat'
+        TextSettings.Font.Size = 18.000000000000000000
+        TextSettings.Font.StyleExt = {00070000000000000004000000}
+        TextSettings.FontColor = claWhite
+        TextSettings.HorzAlign = Center
+        Text = 'Deseja deletar o registro?'
+        TabOrder = 1
+      end
+      object Rectangle3: TRectangle
+        Align = MostTop
+        Fill.Color = xFF1A1F27
+        Margins.Left = 90.000000000000000000
+        Margins.Right = 90.000000000000000000
+        Position.X = 90.000000000000000000
+        Position.Y = 161.000000000000000000
+        Size.Width = 327.000000000000000000
+        Size.Height = 50.000000000000000000
+        Size.PlatformDefault = False
+        Stroke.Kind = None
+        object rtBtnNaoDeletarSistema: TRectangle
+          Align = MostLeft
+          Cursor = crHandPoint
+          Fill.Kind = None
+          Margins.Left = 3.000000000000000000
+          Margins.Top = 15.000000000000000000
+          Margins.Right = 145.000000000000000000
+          Position.X = 3.000000000000000000
+          Position.Y = 15.000000000000000000
+          Size.Width = 142.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Color = claDodgerblue
+          XRadius = 8.000000000000000000
+          YRadius = 8.000000000000000000
+          OnClick = rtBtnNaoDeletarSistemaClick
+          object Label21: TLabel
+            Align = Client
+            StyledSettings = []
+            Size.Width = 142.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Montserrat'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = claWhite
+            TextSettings.HorzAlign = Center
+            Text = 'N'#227'o'
+            TabOrder = 0
+          end
+        end
+        object rtBtnDeletarSistema: TRectangle
+          Align = MostRight
+          Cursor = crHandPoint
+          Fill.Color = claDodgerblue
+          Margins.Left = 150.000000000000000000
+          Margins.Top = 15.000000000000000000
+          Margins.Right = 3.000000000000000000
+          Position.X = 184.000000000000000000
+          Position.Y = 15.000000000000000000
+          Size.Width = 140.000000000000000000
+          Size.Height = 35.000000000000000000
+          Size.PlatformDefault = False
+          Stroke.Kind = None
+          XRadius = 8.000000000000000000
+          YRadius = 8.000000000000000000
+          OnClick = rtBtnDeletarSistemaClick
+          object Label20: TLabel
+            Align = Client
+            StyledSettings = []
+            Size.Width = 140.000000000000000000
+            Size.Height = 35.000000000000000000
+            Size.PlatformDefault = False
+            TextSettings.Font.Family = 'Montserrat'
+            TextSettings.Font.Size = 16.000000000000000000
+            TextSettings.Font.StyleExt = {00070000000000000004000000}
+            TextSettings.FontColor = claWhite
+            TextSettings.HorzAlign = Center
+            Text = 'Deletar'
+            TabOrder = 0
           end
         end
       end

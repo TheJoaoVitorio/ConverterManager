@@ -13,6 +13,7 @@ object FHome: TFHome
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
   DesignerMasterStyle = 0
   object Rectangle1: TRectangle
     Align = Client
