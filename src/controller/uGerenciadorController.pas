@@ -10,13 +10,15 @@ uses
 type
   TGerenciadorController = class
     private
-    class function DeleteSistema(Id: Integer): Boolean; static;
+
 
     public
       class function UpdateSistema(listSistema : TObjectList<TSistemasVO>): Boolean;
       class function InsertSistema(listSistema: TObjectList<TSistemasVO>): Boolean;
       class function GetSistemas : TObjectList<TSistemasVO>;
       class function GetSistema (Id : Integer) : TObjectList<TSistemasVO>;
+
+      class function DeleteSistema(Id: Integer): Boolean;
   end;
 
 implementation

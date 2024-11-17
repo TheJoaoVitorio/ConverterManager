@@ -15,7 +15,7 @@ uses
   FMX.ScrollBox, FMX.Memo, System.Actions, FMX.ActnList;
 
 type
-  TTiposBasesEnum = (Firebird, PostgreSQL,MySQL,Oracle, SQLServer,SQLite,MongoDB,DBF,CSV);
+  TTiposBasesEnum = (FIREBIRD, POSTGRESQL,MYSQL,ORACLE, SQLSERVER,SQLITE,MONGODB,DBF,CSV);
 
   TFHome = class(TForm)
     navBar: TRectangle;
@@ -124,6 +124,15 @@ type
     lblMensagemPopUp: TLabel;
     rtOkTabFecharPopUp: TRectangle;
     Label19: TLabel;
+    lyDeleteSistemaPopUp: TLayout;
+    rtDeleteSistema: TRectangle;
+    Image5: TImage;
+    Label13: TLabel;
+    rtBtnDeletarSistema: TRectangle;
+    Label20: TLabel;
+    rtBtnNaoDeletarSistema: TRectangle;
+    Label21: TLabel;
+    Rectangle3: TRectangle;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure rtBtnAdicionarSistemaClick(Sender: TObject);
@@ -134,7 +143,10 @@ type
     procedure rtOkTabFecharPopUpClick(Sender: TObject);
     procedure edtPortaSistemaTyping(Sender: TObject);
     procedure edtTipoBaseSistemaChange(Sender: TObject);
+    procedure rtBtnDeletarSistemaClick(Sender: TObject);
+    procedure rtBtnNaoDeletarSistemaClick(Sender: TObject);
   private
+    ID_SISTEMA_DELETAR : Integer;
     DatabaseImages: TDictionary<TTiposBasesEnum, string>;
 
     procedure ViewSistemaClick(Sender: Tobject);
@@ -156,6 +168,7 @@ type
     modoView   : Boolean;
     modoEditar : Boolean;
     modoCriacao: Boolean;
+
 
     procedure AddListSistema(ID :Integer;
                              Nome:String;
@@ -377,6 +390,26 @@ begin
 end;
 
 
+procedure TFHome.rtBtnDeletarSistemaClick(Sender: TObject);
+begin
+    if not ID_SISTEMA_DELETAR < 0 then
+    begin
+
+        TGerenciadorController.DeleteSistema(ID_SISTEMA_DELETAR);
+        lyDeleteSistemaPopUp.Visible := False;
+        rtFundoEscuro.Visible := False;
+        lboxSistemas.Clear;
+        ListarSistemas;
+    end;
+
+end;
+
+procedure TFHome.rtBtnNaoDeletarSistemaClick(Sender: TObject);
+begin
+    lyDeleteSistemaPopUp.Visible := False;
+    rtFundoEscuro.Visible := False;
+end;
+
 procedure TFHome.rtBtnProxTabDadosClick(Sender: TObject);
 begin
     NextTab.Execute;
@@ -387,8 +420,6 @@ procedure TFHome.rtBtnTabSalvarDadosClick(Sender: TObject);
 var
   listDados : TObjectList<TSistemasVO>;
 begin
-    ShowMessage('SALVAR DADOS');
-
 
 
     if modoCriacao then
@@ -452,8 +483,7 @@ begin
           
           Exit;
         end;
-      
-      ShowMessage('EDITAR SISTEMA');
+
     end;
 
 end;
@@ -474,6 +504,7 @@ begin
     lboxSistemas.Clear;
     ListarSistemas;
 end;
+
 
 
 /// Actions
@@ -511,18 +542,11 @@ end;
 
 
 procedure TFHome.ExcluirSistemaClick(Sender:TObject);
-var
-  item : TListBoxItem;
-  frame: TFListSistema;
-  ID_ITEM:Integer;
 begin
-    item := TListBoxItem(Sender);
+    ID_SISTEMA_DELETAR := PegaIdListItem(Sender);
 
-    frame := TFListSistema(item.Controls[1]);
-    ID_ITEM := item.Tag;
-
-    ShowMessage('EXCLUIR'+ IntToStr(ID_ITEM));
-
+    lyDeleteSistemaPopUp.Visible := True;
+    rtFundoEscuro.Visible        := True;
 end;
 
 
@@ -640,19 +664,19 @@ end;
 
 function TFHome.MapStringToEnum(const AText: string): TTiposBasesEnum;
 begin
-  if SameText(AText, 'Firebird') then
+  if SameText(AText, 'FIREBIRD') then
     Result := Firebird
-  else if SameText(AText, 'PostgreSQL') then
+  else if SameText(AText, 'POSTGRESQL') then
     Result := PostgreSQL
-  else if SameText(AText, 'MySQL') then
+  else if SameText(AText, 'MYSQL') then
     Result := MySQL
-  else if SameText(AText, 'Oracle') then
+  else if SameText(AText, 'ORACLE') then
     Result := Oracle
-  else if SameText(AText, 'SQLServer') then
+  else if SameText(AText, 'SQLSERVER') then
     Result := SQLServer
-  else if SameText(AText, 'SQLite') then
+  else if SameText(AText, 'SQLITE') then
     Result := SQLite
-  else if SameText(AText, 'MongoDB') then
+  else if SameText(AText, 'MONGODB') then
     Result := MongoDB
   else if SameText(AText, 'DBF') then
     Result := DBF
@@ -667,25 +691,25 @@ procedure TFHome.PathImagesTiposBases;
 begin
     DatabaseImages := TDictionary<TTiposBasesEnum, string>.Create;
 
-    DatabaseImages.Add(Firebird,
+    DatabaseImages.Add(FIREBIRD,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\firebird.png'));
 
-    DatabaseImages.Add(PostgreSQL,
+    DatabaseImages.Add(POSTGRESQL,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\postgresql.png'));
 
-    DatabaseImages.Add(MySQL,
+    DatabaseImages.Add(MYSQL,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\mysql.png'));
 
-    DatabaseImages.Add(Oracle,
+    DatabaseImages.Add(ORACLE,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\oracle.png'));
 
-    DatabaseImages.Add(SQLServer,
+    DatabaseImages.Add(SQLSERVER,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\sqlserver.png'));
 
-    DatabaseImages.Add(SQLite,
+    DatabaseImages.Add(SQLITE,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\sqlite.png'));
 
-    DatabaseImages.Add(MongoDB,
+    DatabaseImages.Add(MONGODB,
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\mongodb.png'));
 
     DatabaseImages.Add(DBF,
@@ -724,7 +748,8 @@ var
   TipoBase: TTiposBasesEnum;
   ImagePath, TextEdit: string;
 begin
-  TextEdit := Trim(edtTipoBaseSistema.Text);
+  TextEdit := StringReplace(edtTipoBaseSistema.Text, ' ', '', [rfReplaceAll]);
+
   // Usa a função para mapear a string digitada para o enum
   TipoBase := MapStringToEnum(TextEdit);
 
@@ -737,12 +762,12 @@ begin
     end
     else
     begin
-      //imgTipoBase;  // img padrão
+      imgTipoBase.Bitmap.LoadFromFile(ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\databasedefault.png'));
     end;
   end
   else
   begin
-    //imgTipoBase.Bitmap.Free; // imgPadrão
+    imgTipoBase.Bitmap.LoadFromFile(ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\databasedefault.png'));
   end;
 
 end;
