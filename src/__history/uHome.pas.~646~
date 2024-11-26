@@ -281,7 +281,8 @@ begin
   f.imgEditarSistema.OnClick   :=  EditarSistemaClick;
   f.imgExcluirSistema.OnClick  :=  ExcluirSistemaClick;
 
-  gapRight := (lboxSistemas.Width / 10) {/ Self.Width};
+  gapRight := 0;
+  gapRight := (rtContent.Width / 10);
 
   with f do
   begin
@@ -677,6 +678,7 @@ begin
   modoEditar := False;
   modoCriacao := False;
   DesbloquearEdicaoEdtPopUP;
+  lboxSistemas.Clear;
 end;
 
 
@@ -692,8 +694,16 @@ begin
     lyPopUp.Visible := False;
     rtFundoEscuro.Visible := False;
     DesbloquearEdicaoEdtPopUP;
+    try
+    lboxSistemas.BeginUpdate;
     lboxSistemas.Clear;
+
     ListarSistemas;
+    finally
+    lboxSistemas.EndUpdate;
+    end;
+
+
 end;
 
 

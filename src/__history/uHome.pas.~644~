@@ -281,7 +281,8 @@ begin
   f.imgEditarSistema.OnClick   :=  EditarSistemaClick;
   f.imgExcluirSistema.OnClick  :=  ExcluirSistemaClick;
 
-  gapRight := (lboxSistemas.Width / 10) {/ Self.Width};
+  gapRight := 0;
+  gapRight := (rtContent.Width / 10)/ Self.Width);
 
   with f do
   begin
@@ -509,11 +510,18 @@ begin
     else
       item.Porta       := StrToInt(edtPortaSistema.Text);
 
-    item.Driver      := edtDriverSistema.Text;
-    item.Usuario     := edtUsuarioSistema.Text;
-    item.Senha       := edtSenhaSistema.Text;
-    item.Servidor    := edtServidorSistema.Text;
-    item.Observacoes := edtObsSistema.Lines.Text;
+    item.Driver        := edtDriverSistema.Text;
+    item.Usuario       := edtUsuarioSistema.Text;
+    item.Senha         := edtSenhaSistema.Text;
+    item.Servidor      := edtServidorSistema.Text;
+    item.Observacoes   := edtObsSistema.Lines.Text;
+
+    item.Produtos      := sistemaVO.Produtos;
+    item.Clientes      := sistemaVO.Clientes;
+    item.Fornecedores  := sistemaVO.Fornecedores;
+    item.ContasReceber := sistemaVO.ContasReceber;
+    item.ContasPagar   := sistemaVO.ContasPagar;
+
     Result.Add(item);
   except
     item.Free;
@@ -627,7 +635,12 @@ end;
 
 procedure TFHome.rtBtnProxTabDadosClick(Sender: TObject);
 begin
-    NextTab.Execute;
+
+    if TabControl1.TabIndex = 0 then
+      NextTab.Execute //////////////////////
+    else
+      rtBtnTabSalvarDadosClick(Sender);
+      
 end;
 
 
@@ -665,6 +678,7 @@ begin
   modoEditar := False;
   modoCriacao := False;
   DesbloquearEdicaoEdtPopUP;
+  lboxSistemas.Clear;
 end;
 
 
@@ -680,8 +694,16 @@ begin
     lyPopUp.Visible := False;
     rtFundoEscuro.Visible := False;
     DesbloquearEdicaoEdtPopUP;
+    try
+    lboxSistemas.BeginUpdate;
     lboxSistemas.Clear;
+
     ListarSistemas;
+    finally
+    lboxSistemas.EndUpdate;
+    end;
+
+
 end;
 
 

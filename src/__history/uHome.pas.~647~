@@ -116,7 +116,7 @@ type
     ActionList1: TActionList;
     NextTab: TNextTabAction;
     rtBtnProxTabDados: TRectangle;
-    Label14: TLabel;
+    lblBtnProxTabDados: TLabel;
     rtBtnVoltarTabDados: TRectangle;
     Label17: TLabel;
     BackTab: TPreviousTabAction;
@@ -281,7 +281,8 @@ begin
   f.imgEditarSistema.OnClick   :=  EditarSistemaClick;
   f.imgExcluirSistema.OnClick  :=  ExcluirSistemaClick;
 
-  gapRight := (lboxSistemas.Width / 10) {/ Self.Width};
+  gapRight := 0;
+  gapRight := (701 / 10);
 
   with f do
   begin
@@ -431,6 +432,7 @@ begin
 end;
 
 
+
 procedure TFHome.SalvaModuloEscolhidoProdutos(Status:Boolean);
 begin
     sistemaVO.Produtos := Ord(Status);
@@ -459,6 +461,7 @@ procedure TFHome.SalvaModuloEscolhidoContasPagar(Status:Boolean);
 begin
     sistemaVO.ContasPagar := Ord(Status);
 end;
+
 
 
 function TFHome.PegaIdListItem(Sender:TObject) : Integer;
@@ -507,11 +510,18 @@ begin
     else
       item.Porta       := StrToInt(edtPortaSistema.Text);
 
-    item.Driver      := edtDriverSistema.Text;
-    item.Usuario     := edtUsuarioSistema.Text;
-    item.Senha       := edtSenhaSistema.Text;
-    item.Servidor    := edtServidorSistema.Text;
-    item.Observacoes := edtObsSistema.Lines.Text;
+    item.Driver        := edtDriverSistema.Text;
+    item.Usuario       := edtUsuarioSistema.Text;
+    item.Senha         := edtSenhaSistema.Text;
+    item.Servidor      := edtServidorSistema.Text;
+    item.Observacoes   := edtObsSistema.Lines.Text;
+
+    item.Produtos      := sistemaVO.Produtos;
+    item.Clientes      := sistemaVO.Clientes;
+    item.Fornecedores  := sistemaVO.Fornecedores;
+    item.ContasReceber := sistemaVO.ContasReceber;
+    item.ContasPagar   := sistemaVO.ContasPagar;
+
     Result.Add(item);
   except
     item.Free;
@@ -591,6 +601,7 @@ begin
     rtFundoEscuro.Visible := True;
     TabControl1.TabIndex := 0;
     lyPopUp.Visible := True;
+    lboxRadioModulos.Clear;
 
     AddModuloSistema(0,'Produtos',False);
     AddModuloSistema(0,'Clientes',False);
@@ -624,7 +635,12 @@ end;
 
 procedure TFHome.rtBtnProxTabDadosClick(Sender: TObject);
 begin
-    NextTab.Execute;
+
+    if TabControl1.TabIndex = 0 then
+      NextTab.Execute //////////////////////
+    else
+      rtBtnTabSalvarDadosClick(Sender);
+      
 end;
 
 
@@ -662,6 +678,7 @@ begin
   modoEditar := False;
   modoCriacao := False;
   DesbloquearEdicaoEdtPopUP;
+  lboxSistemas.Clear;
 end;
 
 
@@ -677,8 +694,16 @@ begin
     lyPopUp.Visible := False;
     rtFundoEscuro.Visible := False;
     DesbloquearEdicaoEdtPopUP;
+    try
+    lboxSistemas.BeginUpdate;
     lboxSistemas.Clear;
+
     ListarSistemas;
+    finally
+    lboxSistemas.EndUpdate;
+    end;
+
+
 end;
 
 
@@ -689,7 +714,8 @@ begin
     if TabControl1.TabIndex = 0 then
     begin
       rtBtnVoltarTabDados.Visible := False;
-      rtBtnProxTabDados.Enabled := True
+      rtBtnProxTabDados.Enabled := True;
+      lblBtnProxTabDados.Text := 'Proximo';
     end;
 
 
@@ -701,6 +727,9 @@ begin
         rtBtnProxTabDados.Enabled := False
       else
         rtBtnProxTabDados.Enabled := True;
+
+      if modoCriacao then
+        lblBtnProxTabDados.Text := 'Salvar';
 
     end;
 
