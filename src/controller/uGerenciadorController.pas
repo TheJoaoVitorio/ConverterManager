@@ -23,6 +23,9 @@ type
 
 implementation
 
+uses
+  System.SysUtils;
+
 { TGerenciadorController }
 
 
@@ -112,11 +115,13 @@ begin
                 vSistema.Servidor             := vQuery.FieldByName('SERVIDOR').AsString;
                 vSistema.Observacoes          := vQuery.FieldByName('OBSERVACOES').AsString;
                 vSistema.VersaoConversor      := vQuery.FieldByName('VERSAO_CONVERSOR').AsString;
-                vSistema.Produtos             := vQuery.FieldByName('PRODUTOS').AsInteger;
+
+                vSistema.Produtos             := vQuery.FieldByName('PRODUTOS').AsInteger;               //1
                 vSistema.ContasReceber        := vQuery.FieldByName('CONTAS_RECEBER').AsInteger;
                 vSistema.ContasPagar          := vQuery.FieldByName('CONTAS_PAGAR').AsInteger;
                 vSistema.Fornecedores         := vQuery.FieldByName('FORNECEDORES').AsInteger;
-                vSistema.Clientes             := vQuery.FieldByName('CLIENTES').AsInteger;
+                vSistema.Clientes             := vQuery.FieldByName('CLIENTES').AsInteger;              //5
+
                 vSistema.ICMSPadraoEstado     := vQuery.FieldByName('ICMS_PADRAO_ESTADO').AsInteger;
                 vSistema.Modulos              := vQuery.FieldByName('MODULOS').AsString;
                 vSistema.PathImg              := vQuery.FieldByName('PATH_IMG').AsString;
@@ -143,6 +148,7 @@ end;
 class function TGerenciadorController.InsertSistema(listSistema: TObjectList<TSistemasVO>) : Boolean;
 var vQuery : TFDQuery;
     item: TSistemasVO;
+
 begin
 
 
@@ -153,12 +159,12 @@ begin
         begin
            Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
            SQL.Text := 'INSERT INTO Sistemas (' +
-                      '    ID, SISTEMA, CIDADE, ESTADO, VERSAO, DATA_CRIACAO, DATA_ALTERACAO, TIPO_BASE, ' +
+                      '     SISTEMA, CIDADE, ESTADO, VERSAO, DATA_CRIACAO, DATA_ALTERACAO, TIPO_BASE, ' +
                       '    USUARIO, SENHA, PORTA, DRIVER, NOME_BASE, CAMINHO_BASE, SERVIDOR, OBSERVACOES, ' +
                       '    VERSAO_CONVERSOR, PRODUTOS, CONTAS_RECEBER, CONTAS_PAGAR, FORNECEDORES, ' +
                       '    CLIENTES, ICMS_PADRAO_ESTADO, MODULOS, PATH_IMG' +
                       ') VALUES (' +
-                      '    :ID, :SISTEMA, :CIDADE, :ESTADO, :VERSAO, :DATA_CRIACAO, :DATA_ALTERACAO, :TIPO_BASE, ' +
+                      '     :SISTEMA, :CIDADE, :ESTADO, :VERSAO, :DATA_CRIACAO, :DATA_ALTERACAO, :TIPO_BASE, ' +
                       '    :USUARIO, :SENHA, :PORTA, :DRIVER, :NOME_BASE, :CAMINHO_BASE, :SERVIDOR, :OBSERVACOES, ' +
                       '    :VERSAO_CONVERSOR, :PRODUTOS, :CONTAS_RECEBER, :CONTAS_PAGAR, :FORNECEDORES, ' +
                       '    :CLIENTES, :ICMS_PADRAO_ESTADO, :MODULOS, :PATH_IMG' +
@@ -168,13 +174,13 @@ begin
 
            for item in listSistema do
             begin
-              ParamByName('ID').AsInteger                 := item.ID;
+              //ParamByName('ID').AsInteger                 := item.ID;
               ParamByName('SISTEMA').AsString             := item.Sistema;
               ParamByName('CIDADE').AsString              := item.Cidade;
               ParamByName('ESTADO').AsString              := item.Estado;
               ParamByName('VERSAO').AsString              := item.Versao;
-              ParamByName('DATA_CRIACAO').AsDateTime      := item.DataCriacao;
-              ParamByName('DATA_ALTERACAO').AsDateTime    := item.DataAlteracao;
+              ParamByName('DATA_CRIACAO').AsDateTime      := Date;
+              ParamByName('DATA_ALTERACAO').AsDateTime    := Date;
               ParamByName('TIPO_BASE').AsString           := item.TipoBase;
               ParamByName('USUARIO').AsString             := item.Usuario;
               ParamByName('SENHA').AsString               := item.Senha;
@@ -185,11 +191,13 @@ begin
               ParamByName('SERVIDOR').AsString            := item.Servidor;
               ParamByName('OBSERVACOES').AsString         := item.Observacoes;
               ParamByName('VERSAO_CONVERSOR').AsString    := item.VersaoConversor;
+
               ParamByName('PRODUTOS').AsInteger           := item.Produtos;
               ParamByName('CONTAS_RECEBER').AsInteger     := item.ContasReceber;
               ParamByName('CONTAS_PAGAR').AsInteger       := item.ContasPagar;
               ParamByName('FORNECEDORES').AsInteger       := item.Fornecedores;
               ParamByName('CLIENTES').AsInteger           := item.Clientes;
+
               ParamByName('ICMS_PADRAO_ESTADO').AsInteger := item.ICMSPadraoEstado;
               ParamByName('MODULOS').AsString             := item.Modulos;
               ParamByName('PATH_IMG').AsString            := item.PathImg;

@@ -1,0 +1,47 @@
+object FRadioModulos: TFRadioModulos
+  Size.Width = 185.000000000000000000
+  Size.Height = 67.000000000000000000
+  Size.PlatformDefault = False
+  object crRadioButton: TCircle
+    Align = MostLeft
+    Fill.Color = xFF1E2531
+    Size.Width = 32.000000000000000000
+    Size.Height = 67.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    Stroke.Thickness = 5.000000000000000000
+    object imgChecked: TImage
+      MultiResBitmap = <
+        item
+          Width = 16
+          Height = 16
+          PNG = {
+            89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+            61000000017352474200AECE1CE90000000467414D410000B18F0BFC61050000
+            009949444154384FE58FB10A42310C45BB8928F8292E3AFB89FA316E2EFA2B2E
+            E292D741FAAA909BD794D44141F2DCC4031D127A9393F087D01D4B125958398E
+            F8C03AF6DC95B7B5961F4AD8C4C437CA7C3803536BFB7085F52EBDCFCA27457B
+            55B5339F2EC0CCDAEF940D3BEA9934602D7F58513555ACAA45B9697789F70026
+            F6ED335791B96EAB26DECDAFB42131CB7174B8A143BE0EFF1A210CF84399CC53
+            07CC900000000049454E44AE426082}
+        end>
+      Align = Client
+      Size.Width = 32.000000000000000000
+      Size.Height = 67.000000000000000000
+      Size.PlatformDefault = False
+      Visible = False
+      WrapMode = Center
+    end
+  end
+  object lblNomeModulo: TLabel
+    StyledSettings = []
+    Position.X = 32.000000000000000000
+    Position.Y = 24.000000000000000000
+    TextSettings.Font.Family = 'Montserrat'
+    TextSettings.Font.Size = 16.000000000000000000
+    TextSettings.Font.StyleExt = {00050000000000000004000000}
+    TextSettings.FontColor = claWhite
+    Text = 'Modulo'
+    TabOrder = 1
+  end
+end

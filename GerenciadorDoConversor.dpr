@@ -8,7 +8,8 @@ uses
   uInstanciaConexao in 'src\conexao\uInstanciaConexao.pas',
   uConexao in 'src\conexao\uConexao.pas',
   uSistemasVO in 'src\VO\uSistemasVO.pas',
-  uGerenciadorController in 'src\controller\uGerenciadorController.pas';
+  uGerenciadorController in 'src\controller\uGerenciadorController.pas',
+  frameRadioModulos in 'src\frames\frameRadioModulos.pas' {FRadioModulos: TFrame};
 
 {$R *.res}
 

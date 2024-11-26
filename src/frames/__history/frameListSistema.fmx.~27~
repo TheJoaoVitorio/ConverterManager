@@ -1,0 +1,252 @@
+object FListSistema: TFListSistema
+  Size.Width = 974.000000000000000000
+  Size.Height = 49.000000000000000000
+  Size.PlatformDefault = False
+  object rtContainerFrame: TRectangle
+    Align = Client
+    Fill.Kind = None
+    Size.Width = 974.000000000000000000
+    Size.Height = 49.000000000000000000
+    Size.PlatformDefault = False
+    Stroke.Kind = None
+    OnMouseEnter = rtContainerFrameMouseEnter
+    OnMouseLeave = rtContainerFrameMouseLeave
+    object lblNomeSistema: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Left = 8.000000000000000000
+      Position.X = 8.000000000000000000
+      Size.Width = 113.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'NomeSistema'
+      TabOrder = 6
+    end
+    object lblCidadeSistema: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Right = 8.000000000000000000
+      Position.X = 121.000000000000000000
+      Size.Width = 146.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'CidadeDoSistemaBA'
+      TabOrder = 0
+    end
+    object lblVersao: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Right = 8.000000000000000000
+      Position.X = 275.000000000000000000
+      Size.Width = 70.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'Versao12'
+      TabOrder = 1
+    end
+    object lblUsuarioSistema: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Right = 8.000000000000000000
+      Position.X = 567.000000000000000000
+      Size.Width = 113.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'UsuarioSistema'
+      TabOrder = 5
+    end
+    object lblTipoBase: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Right = 8.000000000000000000
+      Position.X = 353.000000000000000000
+      Size.Width = 95.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'TipoBaseSQL'
+      TabOrder = 2
+    end
+    object lblSenhaSistema: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Right = 8.000000000000000000
+      Position.X = 688.000000000000000000
+      Size.Width = 103.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'SenhaSistema'
+      TabOrder = 4
+    end
+    object lblNomeBaseSistema: TLabel
+      Align = MostLeft
+      StyledSettings = [Size]
+      Margins.Right = 8.000000000000000000
+      Position.X = 456.000000000000000000
+      Size.Width = 103.000000000000000000
+      Size.Height = 49.000000000000000000
+      Size.PlatformDefault = False
+      TextSettings.Font.Family = 'Montserrat'
+      TextSettings.Font.StyleExt = {00070000000000000004000000}
+      TextSettings.FontColor = claWhite
+      Text = 'NomeBaseSistema'
+      TabOrder = 3
+    end
+    object rtEditarSistema: TRectangle
+      Align = MostLeft
+      Fill.Kind = None
+      Margins.Left = 10.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Position.X = 851.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 46.000000000000000000
+      Size.Height = 29.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claDodgerblue
+      Stroke.Thickness = 2.000000000000000000
+      XRadius = 6.000000000000000000
+      YRadius = 6.000000000000000000
+      object imgEditarSistema: TImage
+        MultiResBitmap = <
+          item
+            Width = 16
+            Height = 16
+            PNG = {
+              89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+              610000000473424954080808087C0864880000011C49444154388DADD2BD4A03
+              511005E073EEAC95085A5869E23348FA34AEADA09DEF2021EB0B187C8224E253
+              08629567B0F227856D5C4C23F813119BB073C7226691CD2E9BA053CF7766E672
+              813F161769DEEADAB657BFFFF4E14ED162B250C046D736A1DA17CA9AC12E5746
+              3C7C6871ECE6C1D58ED50260DD91E793A93CF85AF527001094E14ADBEA30ED25
+              268983DB25314EBC464B908BD2132A6DAB13DA03641900143A124A2886E1A0C9
+              6700283CA1DAB19A37BD9A620080C100608A0B37C84E9E94BE78C8CEB0C9FEEF
+              DE990D7271A2AFE224CCE2998022EC44C24183F779DB721EFC18F12E0FA70105
+              37BFD1491837785B84D313081C65F0274CF6CA3090F391D4F43D808471C49B32
+              9C0698E19A3FAFE14CCEE2E3F9F0BFD437F39B79FD423490A40000000049454E
+              44AE426082}
+          end>
+        Align = Client
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 36.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        WrapMode = Center
+        OnMouseEnter = imgEditarSistemaMouseEnter
+        OnMouseLeave = imgEditarSistemaMouseLeave
+      end
+    end
+    object rtExcluirSistema: TRectangle
+      Align = MostLeft
+      Fill.Color = claRoyalblue
+      Margins.Left = 10.000000000000000000
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Position.X = 917.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 46.000000000000000000
+      Size.Height = 29.000000000000000000
+      Size.PlatformDefault = False
+      Stroke.Color = claRoyalblue
+      XRadius = 6.000000000000000000
+      YRadius = 6.000000000000000000
+      object imgExcluirSistema: TImage
+        MultiResBitmap = <
+          item
+            Width = 16
+            Height = 16
+            PNG = {
+              89504E470D0A1A0A0000000D49484452000000100000001008060000001FF3FF
+              610000000473424954080808087C0864880000008C49444154388DED92B10DC2
+              500C44CFDF96988201D88045102D73B04056899445988005D8002A24FB4C4341
+              A2FC7C440305AFB3757EBAC2C0B791D72133B700D60056EE7E34B30D00B8FBD9
+              CC3A007700171139CDDA480ED980E4506DF06CB15BAC2CD214644330BA294BE1
+              77F80B7E521011B75A3822AED39D4D17AA7A20B92FA58C1E8664AA6AFF69D32A
+              0F55E34D80593CCFF50000000049454E44AE426082}
+          end>
+        Align = Client
+        Margins.Left = 5.000000000000000000
+        Margins.Top = 5.000000000000000000
+        Margins.Right = 5.000000000000000000
+        Margins.Bottom = 5.000000000000000000
+        Size.Width = 36.000000000000000000
+        Size.Height = 19.000000000000000000
+        Size.PlatformDefault = False
+        WrapMode = Center
+        OnMouseEnter = imgExcluirSistemaMouseEnter
+        OnMouseLeave = imgExcluirSistemaMouseLeave
+      end
+    end
+    object imgViewSistema: TImage
+      MultiResBitmap = <
+        item
+          Width = 32
+          Height = 32
+          PNG = {
+            89504E470D0A1A0A0000000D4948445200000020000000200806000000737A7A
+            F40000000473424954080808087C0864880000034F494441545885ED964D6C54
+            5514C7FFE7DC997628451BC18D8518ACAE688D092EC4A4BA73614223F2911037
+            40C8306DA871A6CAC7D0986742665AB4334D2A6D19626007A4849012566C9068
+            A209C4807667EB474117106368533AF3DEBDC7C5F89EC37BF3FA158C0BE7BFBA
+            B9E7E3FFBBF3E69EF7809A6AFABF8B5652B4EF50FF9A7A079B20A6B1DC856769
+            FED10FC3C3D6ECBF06D0DD9D79564768A788D9AD855F570A5C19D71A46297C2D
+            A07386226385810F1F3C118044F278B3803E6692BD808A2E0D57DB46E84C341A
+            F9E4F313877F5B314067329BD0844F15D0F8787FFD1D387209C094B010042F08
+            D1BB2CF28A2F6F8614F70CE7D2A79705103FDCF7B4B2F517006FAFDC17E03E41
+            F68FE4D2E355817B32EFC091D350BCCE171A8BD8C5FD4343D6C34501BA52C737
+            18F05502B505CC05AF8DE48F4E859D0600BA92D9171DC6374AB0B6725F0BEE30
+            F4DBA3F9DE7BA100F18F4EB4B0635F27E2F581CE24DB4606D2973DA32EAB5162
+            AB5A01C07F0312A9EC76022E06F19C5FC544DE1C1D3CFA7300E0E0A1FEE7B42D
+            5F816463B050DF1EC9F57ACFF7C007992DCC3406A0190044CC5DA568C7C9CFD2
+            DF9633843A537D7700B4065A1999D490F6C2E0B1DF0194AF523C6E35E89219AF
+            6E0E80F88ABB4C2673AB44E8826B0E0044BCDE76E8C21ECB8AB93F17802BFE36
+            0000A69608D3783C6E3578006A75DD313036572D000003EFB917B9B459296CF0
+            A728C6F3B13FEBBC1E02FC18D64E40AF72437DDA0320221D6A5E8E8B576CCC92
+            861789C8827125DA0370668B7D30B8154A4CD2E2AE6388DDD41AD3FE1C6DF0CB
+            7C53E99F1E442F859A436EEA9952BF0750285873AA8E3B20F4537502B3D55DE6
+            F3A9474AF1AECA5C0D3DC5C4BBCE5AD6BC8B0C606BA00F001899748C74140AD6
+            5C19A642CBB986F1F8A968B4E1411B00D873EBBE2F140ED86EACAB27B34384C6
+            82EE0B5C43AF38641001F2070BBF71327F64A2EAC9FED6C1645F9B4DB8C190A6
+            CAFDB041C4F06938D73B6DA2DC0E92F38F47E81943E646672AD311669E4866B7
+            95E07CE93717E05CBD536CF79B038BBC8C123DD9F7C83183C1D9AE6F03916B04
+            99281BD0262DF29622BCEC33BE0FA1F747F3477C87592200501E52AAB1BE5B03
+            69053CB5583E0068E0A102327AB638E4FED9560CE0EA3FFB20A9A627F9495653
+            4D35FD05C33D75EC4E336F9C0000000049454E44AE426082}
+        end>
+      Align = MostLeft
+      Margins.Top = 10.000000000000000000
+      Margins.Right = 10.000000000000000000
+      Margins.Bottom = 10.000000000000000000
+      Position.X = 799.000000000000000000
+      Position.Y = 10.000000000000000000
+      Size.Width = 32.000000000000000000
+      Size.Height = 29.000000000000000000
+      Size.PlatformDefault = False
+      WrapMode = Center
+      OnMouseEnter = imgViewSistemaMouseEnter
+      OnMouseLeave = imgViewSistemaMouseLeave
+    end
+  end
+end
