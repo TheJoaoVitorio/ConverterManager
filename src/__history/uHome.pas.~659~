@@ -151,6 +151,7 @@ type
     procedure imgMinimizeClick(Sender: TObject);
     procedure TabControl1Change(Sender: TObject);
   private
+    ID_SISTEMA_EDITAR  : Integer;
     ID_SISTEMA_DELETAR : Integer;
     DatabaseImages: TDictionary<TTiposBasesEnum, string>;
 
@@ -217,6 +218,10 @@ begin
   if not Assigned(sistemaVO) then
     sistemaVO := TSistemasVO.Create;
 
+    Self.Width  := Round(Screen.Width);
+    Self.Height := Round(Screen.Height - 30);
+
+
 end;
 
 
@@ -282,7 +287,7 @@ begin
   f.imgExcluirSistema.OnClick  :=  ExcluirSistemaClick;
 
   gapRight := 0;
-  gapRight := (rtContent.Width / 10) {/ Self.Width};
+  gapRight := (720 / 10);
 
   with f do
   begin
@@ -498,12 +503,14 @@ begin
 
   item := TSistemasVO.Create;
   try
+    item.ID          := ID_SISTEMA_EDITAR;
     item.Sistema     := edtNomeSistema.Text;
     item.Cidade      := edtCidadeSistema.Text;
     item.Estado      := edtEstadoSistema.Text;
     item.Versao      := edtVersaoSistema.Text;
     item.TipoBase    := edtTipoBaseSistema.Text;
     item.NomeBase    := edtNomeBaseSistema.Text;
+    item.CaminhoBase := edtCaminhoBaseSistema.Text;
 
     if edtPortaSistema.Text = '' then
       item.Porta := 0
@@ -754,15 +761,13 @@ end;
 
 
 procedure TFHome.EditarSistemaClick(Sender:TObject);
-var
-  ID_ITEM:Integer;
 begin
-    ID_ITEM := PegaIdListItem(Sender);
+    ID_SISTEMA_EDITAR := PegaIdListItem(Sender);
     modoEditar := True;
     TabControl1.TabIndex := 0;
     lboxRadioModulos.Clear;
 
-    ChamaPopUpComDados(ID_ITEM); //alimentar os Edits com as informações
+    ChamaPopUpComDados(ID_SISTEMA_EDITAR); //alimentar os Edits com as informações
 end;
 
 

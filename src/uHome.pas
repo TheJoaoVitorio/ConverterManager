@@ -179,6 +179,8 @@ type
     procedure SalvaModuloEscolhidoContasPagar(Status: Boolean);
     procedure SalvaModuloEscolhidoContasReceber(Status: Boolean);
     procedure SalvaModuloEscolhidoFornecedores(Status: Boolean);
+    procedure SetPropertyByName(AObject: TObject;
+      const PropertyName: string; const Value: TValue);
 
     //procedure BeforeDestruction ; override;
   public
@@ -217,6 +219,10 @@ begin
 
   if not Assigned(sistemaVO) then
     sistemaVO := TSistemasVO.Create;
+
+    Self.Width  := Round(Screen.Width);
+    Self.Height := Round(Screen.Height - 20);
+
 
 end;
 
@@ -351,11 +357,13 @@ begin
       begin
         imgChecked.Visible := True;
         crRadioButton.Fill.Color := TAlphaColors.Dodgerblue;
+        SetPropertyByName( sistemaVO , NomeModulo , 1 );
       end
     else
       begin
         imgChecked.Visible := False;
         crRadioButton.Fill.Color := StringToAlphaColor('#FF1E2531');
+        SetPropertyByName( sistemaVO , NomeModulo , 0 );
       end;
 
     item.Parent := lboxRadioModulos;
@@ -364,6 +372,30 @@ begin
 
   end;
 
+end;
+
+
+procedure TFHome.SetPropertyByName(AObject: TObject; const PropertyName: string; const Value: TValue);
+var
+  Context: TRttiContext;
+  RttiType: TRttiType;
+  RttiProperty: TRttiProperty;
+begin
+  // Obtém o contexto de RTTI
+  Context := TRttiContext.Create;
+  try
+    // Obtém o tipo do objeto
+    RttiType := Context.GetType(AObject.ClassType);
+    // Busca pela propriedade com o nome fornecido
+    RttiProperty := RttiType.GetProperty(PropertyName);
+
+    if Assigned(RttiProperty) and RttiProperty.IsWritable then
+      RttiProperty.SetValue(AObject, Value)
+    else
+      raise Exception.CreateFmt('A propriedade "%s" não existe ou não é atribuível.', [PropertyName]);
+  finally
+    Context.Free;
+  end;
 end;
 
 
@@ -506,6 +538,7 @@ begin
     item.Versao      := edtVersaoSistema.Text;
     item.TipoBase    := edtTipoBaseSistema.Text;
     item.NomeBase    := edtNomeBaseSistema.Text;
+    item.CaminhoBase := edtCaminhoBaseSistema.Text;
 
     if edtPortaSistema.Text = '' then
       item.Porta := 0
@@ -761,6 +794,8 @@ begin
     modoEditar := True;
     TabControl1.TabIndex := 0;
     lboxRadioModulos.Clear;
+
+
 
     ChamaPopUpComDados(ID_SISTEMA_EDITAR); //alimentar os Edits com as informações
 end;
