@@ -3,7 +3,7 @@ unit uGerenciadorController;
 interface
 
 uses
-  FireDAC.VCLUI.Wait,
+  FireDAC.VCLUI.Wait,Data.DB,Datasnap.DBClient,
   uInstanciaConexao, uSistemasVO, System.Generics.Collections,
   FireDAC.Comp.Client;
 
@@ -16,7 +16,9 @@ type
       class function UpdateSistema(listSistema : TObjectList<TSistemasVO>): Boolean;
       class function InsertSistema(listSistema: TObjectList<TSistemasVO>): Boolean;
       class function GetSistemas : TObjectList<TSistemasVO>;
-      class function GetSistema (Id : Integer) : TObjectList<TSistemasVO>;
+      class function GetSistema(Id : Integer) : TObjectList<TSistemasVO>;
+
+      class function GetSistemaPesquisa(Nome : String ) : TObjectList<TSistemasVO>;
 
       class function DeleteSistema(Id: Integer): Boolean;
   end;
@@ -139,6 +141,70 @@ begin
       end;
     finally
       if Assigned(vQuery) then vQuery.Free;
+    end;
+
+end;
+//
+//SQL.Add('WHERE (UPPER(SISTEMA) LIKE :TextoPesquisa) ' +
+//                        'OR (UPPER(CIDADE) LIKE :TextoPesquisa) ' +
+//                        'OR (UPPER(ESTADO) LIKE :TextoPesquisa) ' +
+//                        'OR (UPPER(TIPO_BASE) LIKE :TextoPesquisa) ');
+
+
+class function TGerenciadorController.GetSistemaPesquisa(Nome : String ) : TObjectList<TSistemasVO>;
+var
+  vQuery : TFDQuery;
+  vSistema : TSistemasVO;
+begin
+    Result := TObjectList<TSistemasVO>.Create;
+
+    vQuery := TFDQuery.Create(nil);
+    try
+      try
+        with vQuery do
+        begin
+          Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
+          SQL.Add('SELECT * FROM SISTEMAS');
+
+          if Nome <> '' then
+          begin
+            SQL.Add('WHERE (UPPER(SISTEMA) LIKE :TextoPesquisa) ' +
+                    'OR (UPPER(TIPO_BASE) LIKE :TextoPesquisa) ');
+
+            ParamByName('TextoPesquisa').AsString := '%' + UpperCase(Nome) + '%';
+          end;
+
+          Open;
+
+          if not IsEmpty then
+          begin
+            while not Eof do begin
+            vSistema          := TSistemasVO.Create;
+
+            vSistema.ID       := vQuery.FieldByName('ID').AsInteger;
+            vSistema.Sistema  := vQuery.FieldByName('SISTEMA').AsString;
+            vSistema.Cidade   := vQuery.FieldByName('CIDADE').AsString+ ' - ' +vQuery.FieldByName('ESTADO').AsString;
+            vSistema.Versao   := vQuery.FieldByName('VERSAO').AsString;
+            vSistema.TipoBase := vQuery.FieldByName('TIPO_BASE').AsString;
+            vSistema.Usuario  := vQuery.FieldByName('USUARIO').AsString;
+            vSistema.Senha    := vQuery.FieldByName('SENHA').AsString;
+            vSistema.NomeBase := vQuery.FieldByName('NOME_BASE').AsString;
+
+            Result.Add(vSistema);
+
+            Next;
+            end;
+
+          end;
+
+        end;
+
+      except
+        on E: Exception do
+          raise Exception.Create('Error: ' + E.Message );
+      end;
+    finally
+      if Assigned(vQuery) then vQuery.Free;      
     end;
 
 end;

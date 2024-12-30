@@ -135,6 +135,8 @@ type
     Label21: TLabel;
     Rectangle3: TRectangle;
     lboxRadioModulos: TListBox;
+    rtBuscar: TRectangle;
+    Image6: TImage;
     procedure imgCloseClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure rtBtnAdicionarSistemaClick(Sender: TObject);
@@ -150,6 +152,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure imgMinimizeClick(Sender: TObject);
     procedure TabControl1Change(Sender: TObject);
+    procedure rtBuscarClick(Sender: TObject);
+
   private
     ID_SISTEMA_EDITAR  : Integer;
     ID_SISTEMA_DELETAR : Integer;
@@ -163,22 +167,25 @@ type
     
     function GetValoresEdit: TObjectList<TSistemasVO>;
     function PegaIdListItem(Sender: TObject): Integer;
-    
+    function MapStringToEnum(const AText: string): TTiposBasesEnum;
+
     procedure DesbloquearEdicaoEdtPopUP;
     procedure BloquearEdicaoEdtPopUP;
     procedure LimpaEdtPopUP;
     procedure ListarSistemas;
-    function MapStringToEnum(const AText: string): TTiposBasesEnum;
     procedure PathImagesTiposBases;
     procedure AtualizarInterfacePosOperacao(const mensagem: string);
     procedure ModuloClick(Sender: TObject);
     procedure PovoaModulosEscolhidos(NomeModulo:String ; Status:Boolean);
+
     class function ObterModuloEnum(const NomeModulo: string): TModulosEnum; static;
+
     procedure SalvaModuloEscolhidoProdutos(Status: Boolean);
     procedure SalvaModuloEscolhidoClientes(Status: Boolean);
     procedure SalvaModuloEscolhidoContasPagar(Status: Boolean);
     procedure SalvaModuloEscolhidoContasReceber(Status: Boolean);
     procedure SalvaModuloEscolhidoFornecedores(Status: Boolean);
+
     procedure SetPropertyByName(AObject: TObject;
       const PropertyName: string; const Value: TValue);
 
@@ -221,7 +228,7 @@ begin
     sistemaVO := TSistemasVO.Create;
 
     Self.Width  := Round(Screen.Width);
-    Self.Height := Round(Screen.Height - 20);
+    Self.Height := Round(Screen.Height - 30);
 
 
 end;
@@ -386,6 +393,7 @@ begin
   try
     // Obtém o tipo do objeto
     RttiType := Context.GetType(AObject.ClassType);
+
     // Busca pela propriedade com o nome fornecido
     RttiProperty := RttiType.GetProperty(PropertyName);
 
@@ -723,6 +731,30 @@ begin
 end;
 
 
+procedure TFHome.rtBuscarClick(Sender: TObject);
+var
+  sistema : TSistemasVO;
+begin
+
+
+  listSistema             := TGerenciadorController.GetSistemaPesquisa(edtBuscaSistema.Text);
+  lboxSistemas.ItemHeight := 50;
+
+
+  for sistema in listSistema do
+  begin
+    try
+      lboxSistemas.Clear;
+      lboxSistemas.BeginUpdate;
+      AddListSistema(sistema.ID, sistema.Sistema, sistema.Cidade,
+                     sistema.Versao, sistema.TipoBase,
+                     sistema.Usuario, sistema.Senha, sistema.NomeBase);
+    finally
+      lboxSistemas.EndUpdate;
+    end;
+  end;
+end;
+
 procedure TFHome.rtOkTabFecharPopUpClick(Sender: TObject);
 begin
     rtMensagemPopUp.Visible := False;
@@ -1003,6 +1035,8 @@ begin
                        ExpandFileName(ExtractFilePath(ParamStr(0)) + '..\..\src\img\csv.png'));
 
 end;
+
+
 
 
 procedure TFHome.edtPortaSistemaTyping(Sender: TObject);
