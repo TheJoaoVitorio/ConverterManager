@@ -152,9 +152,8 @@ type
     procedure FormDestroy(Sender: TObject);
     procedure imgMinimizeClick(Sender: TObject);
     procedure TabControl1Change(Sender: TObject);
-    procedure edtBuscaSistemaChange(Sender: TObject);
     procedure rtBuscarClick(Sender: TObject);
-    procedure Image6Click(Sender: TObject);
+
   private
     ID_SISTEMA_EDITAR  : Integer;
     ID_SISTEMA_DELETAR : Integer;
@@ -189,6 +188,8 @@ type
 
     procedure SetPropertyByName(AObject: TObject;
       const PropertyName: string; const Value: TValue);
+    procedure DefineCamposDefaultConexao(AValue : TTiposBasesEnum);
+    procedure DefineCamposDefaultFirebird;
 
     //procedure BeforeDestruction ; override;
   public
@@ -733,8 +734,27 @@ end;
 
 
 procedure TFHome.rtBuscarClick(Sender: TObject);
+var
+  sistema : TSistemasVO;
 begin
-    ShowMessage('Teste')
+
+
+  listSistema             := TGerenciadorController.GetSistemaPesquisa(edtBuscaSistema.Text);
+  lboxSistemas.ItemHeight := 50;
+
+
+  for sistema in listSistema do
+  begin
+    try
+      lboxSistemas.Clear;
+      lboxSistemas.BeginUpdate;
+      AddListSistema(sistema.ID, sistema.Sistema, sistema.Cidade,
+                     sistema.Versao, sistema.TipoBase,
+                     sistema.Usuario, sistema.Senha, sistema.NomeBase);
+    finally
+      lboxSistemas.EndUpdate;
+    end;
+  end;
 end;
 
 procedure TFHome.rtOkTabFecharPopUpClick(Sender: TObject);
@@ -1020,6 +1040,7 @@ end;
 
 
 
+
 procedure TFHome.edtPortaSistemaTyping(Sender: TObject);
 var
   Key : Char;
@@ -1052,6 +1073,8 @@ begin
   // Usa a função para mapear a string digitada para o enum
   TipoBase := MapStringToEnum(TextEdit);
 
+  DefineCamposDefaultConexao(TipoBase);
+
   // Se o valor de TipoBase foi atribuído corretamente, busca a imagem correspondente
   if TipoBase <> TTiposBasesEnum(-1) then
   begin
@@ -1070,6 +1093,33 @@ begin
   end;
 
 end;
+
+procedure TFHome.DefineCamposDefaultConexao(AValue : TTiposBasesEnum);
+begin
+  case AValue of
+    FIREBIRD     : DefineCamposDefaultFirebird ;
+    POSTGRESQL   : ;
+    MYSQL        : ;
+    ORACLE       : ;
+    SQLSERVER    : ;
+    SQLITE       : ;
+    MONGODB      : ;
+    DBF          : ;
+    CSV          : ;
+  end;
+
+
+end;
+
+procedure TFHome.DefineCamposDefaultFirebird;
+begin
+  edtPortaSistema.Text    := '3050';
+  edtDriverSistema.Text   := 'FB';
+  edtUsuarioSistema.Text  := 'SYSDBA';
+  edtSenhaSistema.Text    := 'masterkey';
+
+end;
+
 
 procedure TFHome.imgCloseClick(Sender: TObject);
 begin

@@ -144,11 +144,7 @@ begin
     end;
 
 end;
-//
-//SQL.Add('WHERE (UPPER(SISTEMA) LIKE :TextoPesquisa) ' +
-//                        'OR (UPPER(CIDADE) LIKE :TextoPesquisa) ' +
-//                        'OR (UPPER(ESTADO) LIKE :TextoPesquisa) ' +
-//                        'OR (UPPER(TIPO_BASE) LIKE :TextoPesquisa) ');
+
 
 
 class function TGerenciadorController.GetSistemaPesquisa(Nome : String ) : TObjectList<TSistemasVO>;

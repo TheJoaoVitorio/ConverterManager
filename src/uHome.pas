@@ -188,6 +188,10 @@ type
 
     procedure SetPropertyByName(AObject: TObject;
       const PropertyName: string; const Value: TValue);
+    procedure DefineCamposDefaultConexao(AValue : TTiposBasesEnum);
+    procedure DefineCamposDefaultFirebird;
+    procedure DefineCamposDefaultPostgresql;
+    procedure DefineCamposDefaultMySql;
 
     //procedure BeforeDestruction ; override;
   public
@@ -1071,6 +1075,8 @@ begin
   // Usa a função para mapear a string digitada para o enum
   TipoBase := MapStringToEnum(TextEdit);
 
+  DefineCamposDefaultConexao(TipoBase);
+
   // Se o valor de TipoBase foi atribuído corretamente, busca a imagem correspondente
   if TipoBase <> TTiposBasesEnum(-1) then
   begin
@@ -1089,6 +1095,51 @@ begin
   end;
 
 end;
+
+procedure TFHome.DefineCamposDefaultConexao(AValue : TTiposBasesEnum);
+begin
+  case AValue of
+    FIREBIRD     : DefineCamposDefaultFirebird ;
+    POSTGRESQL   : DefineCamposDefaultPostgresql;
+    MYSQL        : DefineCamposDefaultMySql;
+    ORACLE       : ;
+    SQLSERVER    : ;
+    SQLITE       : ;
+    MONGODB      : ;
+    DBF          : ;
+    CSV          : ;
+  end;
+
+
+end;
+
+procedure TFHome.DefineCamposDefaultFirebird;
+begin
+  edtPortaSistema.Text    := '3050';
+  edtDriverSistema.Text   := 'FB';
+  edtUsuarioSistema.Text  := 'SYSDBA';
+  edtSenhaSistema.Text    := 'masterkey';
+
+end;
+
+procedure TFHome.DefineCamposDefaultPostgresql;
+begin
+  edtPortaSistema.Text    := '5432';
+  edtDriverSistema.Text   := 'PG';
+  edtUsuarioSistema.Text  := 'postgres';
+  edtSenhaSistema.Text    := '';
+
+end;
+
+procedure TFHome.DefineCamposDefaultMySql;
+begin
+  edtPortaSistema.Text    := '3306';
+  edtDriverSistema.Text   := 'MYSQL';
+  edtUsuarioSistema.Text  := 'root';
+  edtSenhaSistema.Text    := '';
+
+end;
+
 
 procedure TFHome.imgCloseClick(Sender: TObject);
 begin
