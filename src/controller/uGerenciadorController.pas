@@ -160,7 +160,7 @@ begin
         with vQuery do
         begin
           Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
-          SQL.Add('SELECT * FROM SISTEMAS');
+          SQL.Add('SELECT * FROM SISTEMAS ');
 
           if Nome <> '' then
           begin
@@ -169,6 +169,8 @@ begin
 
             ParamByName('TextoPesquisa').AsString := '%' + UpperCase(Nome) + '%';
           end;
+
+          SQL.Add('order by SISTEMA asc');
 
           Open;
 

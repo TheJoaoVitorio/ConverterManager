@@ -740,7 +740,7 @@ var
   sistema : TSistemasVO;
 begin
 
-
+  lboxSistemas.Clear;
   listSistema             := TGerenciadorController.GetSistemaPesquisa(edtBuscaSistema.Text);
   lboxSistemas.ItemHeight := 50;
 
@@ -748,7 +748,7 @@ begin
   for sistema in listSistema do
   begin
     try
-      lboxSistemas.Clear;
+
       lboxSistemas.BeginUpdate;
       AddListSistema(sistema.ID, sistema.Sistema, sistema.Cidade,
                      sistema.Versao, sistema.TipoBase,

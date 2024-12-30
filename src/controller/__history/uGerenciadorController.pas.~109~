@@ -146,44 +146,25 @@ begin
 end;
 
 
-//if not pQuery1.IsEmpty then
-//            begin
-//                while not pQuery1.eof do
-//                begin
-//                    cds.Append;
-//                    cds.FieldByName('ID').AsInteger              := FieldByName('ID').AsInteger;
-//                    cds.FieldByName('SISTEMA').AsString          := FieldByName('SISTEMA').AsString;
-//                    cds.FieldByName('CIDADE').AsString           := FieldByName('CIDADE').AsString +' - ' + FieldByName('ESTADO').AsString;
-//                    cds.FieldByName('VERSAO').AsString           := FieldByName('VERSAO').AsString;
-//                    cds.FieldByName('DATA_ALTERACAO').AsDateTime := FieldByName('DATA_ALTERACAO').AsDateTime;
-//                    cds.FieldByName('OBSERVACOES').AsString      := FieldByName('OBSERVACOES').AsString;
-//                    cds.FieldByName('PATH_IMG').AsString         := FieldByName('PATH_IMG').AsString;
-//                    cds.FieldByName('TIPO_BASE').AsString        := FieldByName('TIPO_BASE').AsString;
-//                    cds.FieldByName('NOME_BASE').AsString        := FieldByName('NOME_BASE').AsString;
-//                    cds.FieldByName('CAMINHO_BASE').AsString     := FieldByName('CAMINHO_BASE').AsString;
-//
-//                    cds.Post;
-//                    pQuery1.Next;
-//                end;
-//            end;
-
 
 class function TGerenciadorController.GetSistemaPesquisa(Nome : String ) : TObjectList<TSistemasVO>;
 var
   vQuery : TFDQuery;
   vSistema : TSistemasVO;
 begin
+    Result := TObjectList<TSistemasVO>.Create;
+
     vQuery := TFDQuery.Create(nil);
     try
       try
         with vQuery do
         begin
           Connection := TInstanciaConexaoController.GetInstance().Conexao.GetConexao;
-          SQL.Add('SELECT * FROM SISTEMAS');
+          SQL.Add('SELECT * FROM SISTEMAS order by SISTEMA asc ');
 
           if Nome <> '' then
           begin
-            SQL.Add('WHERE (UPPER(SISTEMA) LIKE :TextoPesquisa' +
+            SQL.Add('WHERE (UPPER(SISTEMA) LIKE :TextoPesquisa) ' +
                     'OR (UPPER(TIPO_BASE) LIKE :TextoPesquisa) ');
 
             ParamByName('TextoPesquisa').AsString := '%' + UpperCase(Nome) + '%';
@@ -194,8 +175,8 @@ begin
           if not IsEmpty then
           begin
             while not Eof do begin
+            vSistema          := TSistemasVO.Create;
 
-            vSistema := TSistemasVO.Create;
             vSistema.ID       := vQuery.FieldByName('ID').AsInteger;
             vSistema.Sistema  := vQuery.FieldByName('SISTEMA').AsString;
             vSistema.Cidade   := vQuery.FieldByName('CIDADE').AsString+ ' - ' +vQuery.FieldByName('ESTADO').AsString;
@@ -215,9 +196,11 @@ begin
         end;
 
       except
+        on E: Exception do
+          raise Exception.Create('Error: ' + E.Message );
       end;
     finally
-
+      if Assigned(vQuery) then vQuery.Free;      
     end;
 
 end;
